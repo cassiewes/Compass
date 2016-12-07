@@ -1,0 +1,17 @@
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  font-family: verdana, sans-serif;
+  font-size: 50px;
+}
+span{
+  color:#54a053;
+}
+body{
+  background-image: url(yogapic.png);
+  background-size: 100% auto;
+}
