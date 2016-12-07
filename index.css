@@ -7,10 +7,10 @@
   transform: translate(-50%, -50%);
   font-family: verdana, sans-serif;
   font-size: 50px;
+  color: #67696d;
 }
 span{
-  /*color:#54a053;*/
-  color:white;
+  color:#eaedf2;
 }
 body{
   background-image: url(yogapic.png);
