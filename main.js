@@ -24,9 +24,11 @@ function initMap() {
 
     function callback(results, status) {
       console.log(results);
+      var k = 0;
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           createMarker(results[i]);
+          console.log('#name'+i);
           service.getDetails({
               placeId: results[i].place_id,
             }, function(place, status) {
@@ -35,6 +37,17 @@ function initMap() {
                   map: map,
                   position: place.geometry.location
                 });
+                $('#name'+k).append('name: ' +place.name);
+                $('#address'+k).append('address: '+ place.formatted_address);
+                $('#phone'+k).append('phone: ' +place.formatted_phone_number);
+                $('#website'+k).append('website: '+place.website);
+                if(place.price_level != null){
+                  $('#price'+k).append('price level: '+ place.price_level);
+                }
+                if(place.rating != null){
+                  $('#rating'+k).append('rating: '+place.rating);
+                }
+                k++;
                 google.maps.event.addListener(marker, 'click', function() {
                   infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
                      'Website:' + place.website + '<br>' +
