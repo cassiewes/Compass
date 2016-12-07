@@ -2,15 +2,16 @@
 <html>
 <head>
 <title>Compass</title>
-    <script type='text/javascript' src= "script.js">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
-  </head>
-
-  <body>
-    <p>Would you like to <span onClick = "walk()">walk</span> or <span onClick ="bike()">bike</span> today?
-    </p>
-
-    <input type="button" onclick="location.href='activity.html';" value="next" />
-  </body>
-  </html>
-  
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="index.css">
+<script type='text/javascript' src= "script.js">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+</head>
+<body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <div class="center">
+    <div>Would you like to <span onclick = "location.href='activity.html';">walk</span>, <span onclick = "location.href='activity.html';">drive</span>, or use the <span onclick = "location.href='activity.html';">transit</span>?</div>
+  </div>
+</body>
+</html>
