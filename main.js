@@ -1,27 +1,6 @@
 var map;
 var infowindow;
-/*
-function initMap() {
-  var locate = {lat: 40.779598, lng: -73.977601}; //locate holds the user's inputed address
 
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: locate,
-    zoom: 16
-  });
-
-
-  infowindow = new google.maps.InfoWindow();
-  var service = new google.maps.places.PlacesService(map);
-  service.nearbySearch({
-    location: locate,
-    radius: 500,
-    keyword: 'pilate',
-    type: 'gym'
-  }, callback);
-}
-*/
-
-//directions here
 function initMap() {
 
   var locate = {lat: 40.779598, lng: -73.977601};
