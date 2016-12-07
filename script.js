@@ -1,5 +1,6 @@
 var type = "walk";
 var filters =[];
+var address = "";
 
 function walk()
 {
@@ -36,3 +37,10 @@ function pilates(){
 function spin(){
   filers.push("spin");
 }
+
+$(document).ready(function() {
+  document.getElementById('info').addEventListener('submit', function (e) {
+    e.preventDefault();
+    address = document.getElementById('address').value;
+}, false);
+});
