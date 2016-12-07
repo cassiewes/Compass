@@ -14,3 +14,30 @@ body{
   background-size: 100% auto;
   color:white;
 }
+td{
+  text-align: center;
+}
+
+#barre:hover, #boxing:hover, #yoga:hover, #gym:hover, #pilates:hover, #spin:hover{
+  background-color:#eaedf2;
+  opacity: 0.7;
+}
+
+#next {
+	background-color:#eaedf2;
+	-moz-border-radius:39px;
+	-webkit-border-radius:39px;
+	border-radius:39px;
+	border:1px solid #67696d;
+	display:inline-block;
+	cursor:pointer;
+	color:#67696d;
+	font-family:verdana, sans-serif;
+	font-size:28px;
+	padding:5px 60px;
+	text-decoration:none;
+}
+#next:hover {
+	background-color:#67696d;
+  color: #eaedf2;
+}
