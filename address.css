@@ -1,0 +1,60 @@
+body{
+  background-image: url(weights.png);
+  background-size: 100% auto;
+}
+
+#address {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  border-color:#67696d;
+  border-style:solid;
+  padding:30px;
+  font-size:55px;
+  text-align:center;
+  border-width:2px;
+  border-radius:50px;
+  color: #67696d;
+  background-color: #eaedf2;
+
+}
+
+#title {
+  margin: 0;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+  font-family: verdana, sans-serif;
+  font-size: 45px;
+  color: #67696d;
+}
+
+#send {
+	background-color:#eaedf2;
+	-moz-border-radius:39px;
+	-webkit-border-radius:39px;
+	border-radius:39px;
+	border:1px solid #67696d;
+	display:inline-block;
+	cursor:pointer;
+	color:#67696d;
+	font-family:verdana, sans-serif;
+	font-size:36px;
+	padding:5px 60px;
+	text-decoration:none;
+  margin: 0;
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+#send:hover {
+	background-color:#67696d;
+  color: #eaedf2;
+}
