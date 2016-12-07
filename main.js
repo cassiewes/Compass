@@ -1,6 +1,6 @@
 var map;
 var infowindow;
-
+var service;
 function initMap() {
 
   var locate = {lat: 40.779598, lng: -73.977601};
@@ -14,7 +14,7 @@ function initMap() {
     });
 
     infowindow = new google.maps.InfoWindow();
-    var service = new google.maps.places.PlacesService(map);
+    service = new google.maps.places.PlacesService(map);
     service.nearbySearch({
       location: locate,
       radius: 500,
@@ -27,6 +27,22 @@ function initMap() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         for (var i = 0; i < results.length; i++) {
           createMarker(results[i]);
+          service.getDetails({
+              placeId: results[i].place_id,
+            }, function(place, status) {
+              if (status === google.maps.places.PlacesServiceStatus.OK) {
+                var marker = new google.maps.Marker({
+                  map: map,
+                  position: place.geometry.location
+                });
+                google.maps.event.addListener(marker, 'click', function() {
+                  infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
+                     'Website:' + place.website + '<br>' +
+                    place.formatted_address + '</div>');
+                  infowindow.open(map, this);
+                });
+              }
+            });
         }
       }
     }
