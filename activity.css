@@ -6,13 +6,11 @@
   margin-right: -50%;
   transform: translate(-50%, -50%);
   font-family: verdana, sans-serif;
-  font-size: 50px;
+  font-size: 40px;
 }
-span{
-  /*color:#54a053;*/
-  color:white;
-}
+
 body{
   background-image: url(yogapic.png);
   background-size: 100% auto;
+  color:white;
 }
