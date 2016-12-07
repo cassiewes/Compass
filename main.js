@@ -341,6 +341,7 @@ function initMap() {
     }
 ]
     });
+
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(map);
@@ -353,7 +354,6 @@ function initMap() {
       keyword: 'pilate',
       type: 'gym'
     }, callback);
-
     function callback(results, status) {
       console.log(results);
       var k = 0;
@@ -366,6 +366,7 @@ function initMap() {
             }, function(place, status) {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
                 var marker = new google.maps.Marker({
+                  icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
                   map: map,
                   position: place.geometry.location
                 });
@@ -393,8 +394,10 @@ function initMap() {
     function createMarker(place) {
       var placeLoc = place.geometry.location;
       var marker = new google.maps.Marker({
+        icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
         map: map,
         position: place.geometry.location
+
       });
 
       google.maps.event.addListener(marker, 'click', function() {
