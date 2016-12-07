@@ -341,7 +341,6 @@ function initMap() {
     }
 ]
     });
-
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(map);
@@ -354,6 +353,7 @@ function initMap() {
       keyword: 'pilate',
       type: 'gym'
     }, callback);
+
     function callback(results, status) {
       console.log(results);
       var k = 0;
@@ -397,7 +397,6 @@ function initMap() {
         icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
         map: map,
         position: place.geometry.location
-
       });
 
       google.maps.event.addListener(marker, 'click', function() {
@@ -448,7 +447,6 @@ function initMap() {
         return;
       }
       expandViewportToFitPlace(map, place);
-
       // If the place has a geometry, store its place ID and route if we have
       // the other place ID
       origin_place_id = place.place_id;
@@ -463,7 +461,6 @@ function initMap() {
         return;
       }
       expandViewportToFitPlace(map, place);
-
       // If the place has a geometry, store its place ID and route if we have
       // the other place ID
       destination_place_id = place.place_id;
