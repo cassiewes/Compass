@@ -1,3 +1,5 @@
+var address;
+addressPlaceID='ChIJ1wzSUYlYwokRIe1wE0wTy68';
 var map;
 var infowindow;
 var service;
@@ -12,6 +14,9 @@ function initMap() {
       center: locate,
       zoom: 16
     });
+    var directionsService = new google.maps.DirectionsService;
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    directionsDisplay.setMap(map);
 
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
@@ -49,10 +54,8 @@ function initMap() {
                 }
                 k++;
                 google.maps.event.addListener(marker, 'click', function() {
-                  infowindow.setContent('<div><strong>' + place.name + '</strong><br>' +
-                     'Website:' + place.website + '<br>' +
-                    place.formatted_address + '</div>');
-                  infowindow.open(map, this);
+                  route(addressPlaceID, place.place_id, travel_mode,
+                        directionsService, directionsDisplay);
                 });
               }
             });
@@ -72,10 +75,6 @@ function initMap() {
         infowindow.open(map, this);
       });
     }
-
-    var directionsService = new google.maps.DirectionsService;
-    var directionsDisplay = new google.maps.DirectionsRenderer;
-    directionsDisplay.setMap(map);
 
     var origin_input = document.getElementById('origin-input');
     var destination_input = document.getElementById('destination-input');
@@ -112,7 +111,7 @@ function initMap() {
       }
     }
 
-    origin_autocomplete.addListener('place_changed', function() {
+    /*origin_autocomplete.addListener('place_changed', function() {
       var place = origin_autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("Autocomplete's returned place contains no geometry");
@@ -125,9 +124,9 @@ function initMap() {
       origin_place_id = place.place_id;
       route(origin_place_id, destination_place_id, travel_mode,
             directionsService, directionsDisplay);
-    });
+    });*/
 
-    destination_autocomplete.addListener('place_changed', function() {
+    /*destination_autocomplete.addListener('place_changed', function() {
       var place = destination_autocomplete.getPlace();
       if (!place.geometry) {
         window.alert("Autocomplete's returned place contains no geometry");
@@ -140,7 +139,9 @@ function initMap() {
       destination_place_id = place.place_id;
       route(origin_place_id, destination_place_id, travel_mode,
             directionsService, directionsDisplay);
-    });
+    });*/
+    origin_place_id='ChIJMdYyL_hPwokRz2VNqsV7seY';
+    destination_place_id='ChIJ3cJ8S4pYwokRq-B11UxcHOw';
 
     function route(origin_place_id, destination_place_id, travel_mode,
                    directionsService, directionsDisplay) {
