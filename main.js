@@ -3,12 +3,23 @@ addressPlaceID='ChIJ1wzSUYlYwokRIe1wE0wTy68';
 var map;
 var infowindow;
 var service;
-function initMap() {
+var travel_mode;
+var keywords = new Array();
 
-  var locate = {lat: 40.779598, lng: -73.977601};
+function getInfo(){
+  method = window.location.hash.substr(1);
+  parts = method.split("&");
+  travel_mode = parts[0].split("=");
+  travel_mode = travel_mode[1];
+  keywords = parts[1].split("=");
+  keywords=keywords[1].split("_");
+}
+
+function initMap() {
+    getInfo()
+    var locate = {lat: 40.779598, lng: -73.977601};
     var origin_place_id = null;
     var destination_place_id = null;
-    var travel_mode = 'WALKING';
     var map = new google.maps.Map(document.getElementById('map'), {
       mapTypeControl: false,
       center: locate,
@@ -350,7 +361,7 @@ function initMap() {
     service.nearbySearch({
       location: locate,
       radius: 500,
-      keyword: 'pilate',
+      keyword: keyword,
       type: 'gym'
     }, callback);
 

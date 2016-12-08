@@ -1,46 +1,17 @@
-var type = "walk";
-var filters =[];
 var address = "";
 
 function walk()
 {
-  type = "walk";
+  window.location.href = "activity.html#Method=WALKING"
   //sets the mode of transportation to walk
 }
 
-function bike()
+function transit()
 {
-  type="bike";
-  //sets the mode of transportation to bike
+  window.location.href = "activity.html#Method=TRANSIT"
 }
 
-function barre(){
-  filters.push("barre");
+function drive()
+{
+  window.location.href="activity.html#Method=DRIVING"
 }
-
-function boxing(){
-  filters.push("boxing");
-}
-
-function yoga(){
-  filters.push("yoga");
-}
-
-function gym(){
-  filters.push("gym");
-}
-
-function pilates(){
-  filters.push("pilates");
-}
-
-function spin(){
-  filers.push("spin");
-}
-
-$(document).ready(function() {
-  document.getElementById('info').addEventListener('submit', function (e) {
-    e.preventDefault();
-    address = document.getElementById('address').value;
-}, false);
-});

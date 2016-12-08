@@ -2,7 +2,7 @@
 <html>
 <head>
 <title>Compass</title>
-    <script type='text/javascript' src= "activity.js">
+    <script type='text/javascript' src= "activity.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="activity.css">
   </head>
@@ -11,17 +11,17 @@
     <p id = "header">select your activities</p>
     <table class = "center" cellspacing="13">
       <tr>
-        <td onclick="barre()"><img id = "barre" src="barre.png" alt="barre" height="80" width="80"></td>
+        <td onclick="addBarre()"><img id = "barre" src="barre.png" alt="barre" height="80" width="80"></td>
         <td>   </td>
-        <td><img id = "boxing" src="boxing.png" onclick="boxing()" alt="boxing" height="80" width="80"></td>
+        <td><img id = "boxing" src="boxing.png" onclick="addBoxing()" alt="boxing" height="80" width="80"></td>
         <td>   </td>
-        <td><img id = "yoga"src="yoga.png" onclick="yoga()"alt="yoga" height="80" width="80"></td>
+        <td><img id = "yoga"src="yoga.png" onclick="addYoga()"alt="yoga" height="80" width="80"></td>
         <td>   </td>
-        <td><img id = "gym" src="gym.png" onclick = "gym()" alt="gym" height="80" width="80"></td>
+        <td><img id = "gym" src="gym.png" onclick = "addGym()" alt="gym" height="80" width="80"></td>
         <td>   </td>
-        <td><img id = "pilates" src="pilates.png" onclick = "pilates()"alt="pilates" height="80" width="80"></td>
+        <td><img id = "pilates" src="pilates.png" onclick = "addPilates()"alt="pilates" height="80" width="80"></td>
         <td>   </td>
-        <td><img id = "spin" src="spin.png" onclick="spin()" alt="spin" height="80" width="80"></td>
+        <td><img id = "spin" src="spin.png" onclick="spin()" alt="addSpin" height="80" width="80"></td>
       <tr>
         <td><p id = "barretext">barre</p></td>
         <td>   </td>
@@ -36,6 +36,6 @@
         <td><p id = "spintext">spin</p></td>
       </tr>
     </table>
-    <input type="button" id = "next" onclick="location.href='address.html';" value="let's continue!"/>
+    <input type="button" id = "next" onclick="go()" value="let's continue!"/>
     </body>
     </html>
