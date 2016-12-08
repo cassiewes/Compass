@@ -13,6 +13,7 @@ function getInfo(){
   travel_mode = travel_mode[1];
   keywords = parts[1].split("=");
   keywords=keywords[1].split("_");
+
 }
 
 function initMap() {
@@ -361,7 +362,7 @@ function initMap() {
     service.nearbySearch({
       location: locate,
       radius: 500,
-      keyword: keyword,
+      keyword: keywords[1],
       type: 'gym'
     }, callback);
 
