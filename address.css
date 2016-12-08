@@ -29,7 +29,7 @@ body{
   left: 50%;
   margin-right: -50%;
   transform: translate(-50%, -50%);
-  font-family: verdana, sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 45px;
   color: #67696d;
 }
@@ -43,7 +43,7 @@ body{
 	display:inline-block;
 	cursor:pointer;
 	color:#67696d;
-	font-family:verdana, sans-serif;
+	font-family: 'Montserrat', sans-serif;
 	font-size:36px;
 	padding:5px 60px;
 	text-decoration:none;
