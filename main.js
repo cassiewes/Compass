@@ -365,7 +365,6 @@ function initMap() {
       });
     }
   }
-<<<<<<< Updated upstream
   else {
    var method = window.location.hash.substr(1);
    var parts = method.split("&");
@@ -373,6 +372,3 @@ function initMap() {
  }
  });
  }
-=======
-
->>>>>>> Stashed changes
