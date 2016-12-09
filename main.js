@@ -358,6 +358,7 @@ function initMap() {
       }, function(response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
+          console.log(response);
         } else {
           window.alert('Directions request failed due to ' + status);
         }
