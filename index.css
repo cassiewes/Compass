@@ -16,3 +16,9 @@ body{
   background-image: url(yogapic.png);
   background-size: 100% auto;
 }
+.glyphicon{
+  top: 0;
+  bottom: 0;
+  position: fixed;
+  font-size: 1.4em;
+}
