@@ -6,6 +6,7 @@ var keywords = new Array();
 var address = "";
 var locate;
 var addressPlaceID;
+var activities;
 
 function getInfo(){
   method = window.location.hash.substr(1);
@@ -14,6 +15,21 @@ function getInfo(){
   travel_mode = travel_mode[1];
   keywords = parts[1].split("=");
   keywords=keywords[1].split("_");
+  activities = "";
+  if (keywords.length == 2){
+    activities = keywords[1];
+  }
+  else{
+    for(i = 1; i < keywords.length; i++){
+      if (i == 1){
+        activities = activities + "(" + keywords[i] + ")"
+      }
+      else{
+        activities = activities + " OR (" + keywords[i] + ")";
+      }
+    }
+  }
+  window.alert(activities);
   address = parts[2].split('=');
   address = address[1].split('+').join(' ');
 }
@@ -369,7 +385,7 @@ function initMap() {
     service.nearbySearch({
       location: locate,
       radius: 500,
-      keyword: keywords[1],
+      keyword: activities,
       type: 'gym'
     }, callback);
 
