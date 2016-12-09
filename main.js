@@ -365,7 +365,9 @@ function initMap() {
     }
   }
   else {
-   alert('Geocode was not successful for the following reason: ' + status);
+   var method = window.location.hash.substr(1);
+   var parts = method.split("&");
+   location.href = "addressError.html#" + parts[0] + "&" + parts[1];
  }
  });
  }
