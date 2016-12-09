@@ -310,15 +310,15 @@ function initMap() {
                   map: map,
                   position: place.geometry.location
                 });
-                $('#name'+k).append('name: ' +place.name);
-                $('#address'+k).append('address: '+ place.formatted_address);
-                $('#phone'+k).append('phone: ' +place.formatted_phone_number);
-                $('#website'+k).append('website: '+place.website);
+                $('#name'+k).append('<h5><strong>' +place.name + '</strong></h5>');
+                $('#address'+k).append('Address: '+ place.formatted_address);
+                $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
+                $('#website'+k).append('Website: '+place.website);
                 if(place.price_level != null){
-                  $('#price'+k).append('price level: '+ place.price_level);
+                  $('#price'+k).append('Price level: '+ place.price_level);
                 }
                 if(place.rating != null){
-                  $('#rating'+k).append('rating: '+place.rating);
+                  $('#rating'+k).append('Rating: '+place.rating);
                 }
                 k++;
                 google.maps.event.addListener(marker, 'click', function() {
@@ -364,6 +364,7 @@ function initMap() {
       });
     }
   }
+<<<<<<< Updated upstream
   else {
    var method = window.location.hash.substr(1);
    var parts = method.split("&");
@@ -371,3 +372,6 @@ function initMap() {
  }
  });
  }
+=======
+
+>>>>>>> Stashed changes
