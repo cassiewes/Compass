@@ -1,0 +1,9 @@
+body{
+  background-image: url(yogapic.png);
+  background-size: 100% auto;
+}
+.faq {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 50px;
+  color: #67696d;
+}

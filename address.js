@@ -7,6 +7,5 @@ $(document).ready(function() {
     var address = address.split(' ').join('+');
     var method = window.location.hash.substr(1);
     location.href= "main.html#"+method+"&Address="+address;
-
 }, false);
 });
