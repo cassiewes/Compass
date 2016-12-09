@@ -1,4 +1,4 @@
-var address = "";
+ var address = "";
 
 function walk()
 {
