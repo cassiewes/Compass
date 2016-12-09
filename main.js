@@ -29,7 +29,6 @@ function getInfo(){
       }
     }
   }
-  window.alert(activities);
   address = parts[2].split('=');
   address = address[1].split('+').join(' ');
 }
@@ -392,7 +391,7 @@ function initMap() {
     function callback(results, status) {
       var k = 0;
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < results.length; i++) {
+        for (var i = 0; i < 10; i++) {
           createMarker(results[i]);
           service.getDetails({
               placeId: results[i].place_id,
