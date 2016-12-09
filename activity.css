@@ -30,6 +30,7 @@ td{
 
 #barre, #boxing, #yoga, #gym, #pilates, #spin{
   border-radius: 10px;
+
 }
 
 #barre:hover, #boxing:hover, #yoga:hover, #gym:hover, #pilates:hover, #spin:hover{
@@ -60,4 +61,42 @@ td{
 #next:hover {
 	background-color:#67696d;
   color: #eaedf2;
+}
+
+#back {
+	background-color:#eaedf2;
+	-moz-border-radius:39px;
+	-webkit-border-radius:39px;
+	border-radius:39px;
+	border:1px solid #67696d;
+	display:inline-block;
+	cursor:pointer;
+	color:#67696d;
+	font-family: 'Montserrat', sans-serif;
+	font-size:20px;
+	padding:5px 30px;
+	text-decoration:none;
+  margin: 0;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+#back:hover {
+	background-color:#67696d;
+  color: #eaedf2;
+}
+
+.glyphicon{
+  	display:inline-block;
+    position: absolute;
+    padding-top: 56px;
+    top: 10%;
+    left: 97.5%;
+    right: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
 }

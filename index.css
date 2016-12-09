@@ -17,8 +17,17 @@ body{
   background-size: 100% auto;
 }
 .glyphicon{
-  top: 0;
-  bottom: 0;
-  position: fixed;
-  font-size: 1.4em;
+  	display:inline-block;
+    position: absolute;
+    padding-top: 56px;
+    top: 10%;
+    left: 97.5%;
+    right: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
+}
+
+#walk:hover, #drive:hover, #transit:hover{
+  font-style:italic;
 }

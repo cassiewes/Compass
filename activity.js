@@ -81,3 +81,7 @@ function addSpin() {
 function go(){
   location.href = "address.html#"+method+"&Activity="+keyword;
 }
+
+function back(){
+  location.href = "index.html";
+}
