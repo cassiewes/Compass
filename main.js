@@ -313,7 +313,7 @@ function initMap() {
                 $('#name'+k).append('<h5><strong>' +place.name + '</strong></h5>');
                 $('#address'+k).append('Address: '+ place.formatted_address);
                 $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
-                $('#website'+k).append('Website: '+place.website);
+                $('#website'+k).append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
                 if(place.price_level != null){
                   $('#price'+k).append('Price level: '+ place.price_level);
                 }
