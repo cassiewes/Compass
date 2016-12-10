@@ -371,3 +371,28 @@ function initMap() {
  }
  });
  }
+
+function Location(address, phone, website, price, rating){
+    this.Address = address;
+    this.Phone = phone;
+    this.Website = website;
+    this.Price = price;
+    this.Rating = rating;
+}
+
+$('#name'+k).append('<h5><strong>' +place.name + '</strong></h5>');
+                $('#address'+k).append('Address: '+ place.formatted_address);
+                $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
+                $('#website'+k).append('Website: '+place.website);
+                if(place.price_level != null){
+                  $('#price'+k).append('Price level: '+ place.price_level);
+                }
+                if(place.rating != null){
+                  $('#rating'+k).append('Rating: '+place.rating);
+                }
+
+$( ".star label" ).toggle(function() {
+    
+}, function() {
+});
+    

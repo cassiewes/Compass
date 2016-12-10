@@ -54,3 +54,38 @@ html, body {
 a.no-margin p{
     margin: 0px;
 }
+
+.star label.btn.focus, .star label.btn:focus{
+    outline: none;
+}
+
+.star label.btn:active, .star label.btn.active{
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    color: #FECC01;
+}
+
+.star{
+    background-color: transparent;
+    float:right;
+}
+
+.star label.btn:hover span{
+    color: #FECC01;
+}
+
+.btn-secondary{
+    background-color: white;
+}
+
+.width-100{
+    width:100%;
+}
+
+.text-left{
+    text-align: left;
+}
+
+.list-button:hover{
+    background-color: gainsboro;
+}
