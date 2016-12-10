@@ -7,6 +7,83 @@ var address = "";
 var locate;
 var addressPlaceID;
 var activities;
+var favoriteList = [];
+
+function Location(name, address, phone, website, price, rating){
+    this.Name = name;
+    this.Address = address;
+    this.Phone = phone;
+    this.Website = website;
+    this.Price = price;
+    this.Rating = rating;
+}
+
+function equal(location1, location2){
+    var eq = 0;
+    eq = (location1.Name == location2.Name)?eq+0:eq+1;
+    eq = (location1.Address == location2.Address)?eq+0:eq+1;
+    eq = (location1.Phone == location2.Phone)?eq+0:eq+1;  
+    return (eq == 0)?true:false;
+}
+
+function getIndex(location){
+    var i;
+    for(i = 0; i < favoriteList.length; i++){
+        if(equal(favoriteList[i], location)){
+           return i;   
+        }
+    }
+    return false;
+}
+
+
+//function for favoriting a workout location (click star)
+$(".star label input" ).change(function() {
+    
+    //get the html object for location
+    var result = $(this).parents("button").first();
+    
+    //get the  result id of location
+    var resultIdName = result.attr("id");
+    
+    //get result location information
+    var favorite = getLocation(resultIdName);
+        
+    if($(this).first().prop("checked")){
+        favoriteList.push(favorite);
+        console.log("add");
+        console.log(favoriteList);  
+    }else{
+        removeFavorite(favorite);
+        console.log("rm");
+        console.log(favoriteList);  
+    }
+    
+    //add new favorite to favorite list
+});
+
+
+function removeFavorite(favorite){
+    var index = getIndex(favorite);
+    favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length+1));
+}
+
+function getLocation(resultIdName){
+    var resultNumber = resultIdName.charAt(resultIdName.length-1);
+    
+    //create new Location object from result info
+    var name = $('#name'+resultNumber).text();
+    var address = $('#address'+resultNumber).text();
+    var phone = $('#phone'+resultNumber).text();
+    var website = $('#website'+resultNumber).text();
+    var price = $('#price'+resultNumber).text();
+    var rating = $('#rating'+resultNumber).text();
+    
+    var favorite = new Location(name, address,phone,website,price,rating);
+    
+    return favorite;
+}
+
 
 function getInfo(){
   method = window.location.hash.substr(1);
@@ -372,27 +449,5 @@ function initMap() {
  });
  }
 
-function Location(address, phone, website, price, rating){
-    this.Address = address;
-    this.Phone = phone;
-    this.Website = website;
-    this.Price = price;
-    this.Rating = rating;
-}
 
-$('#name'+k).append('<h5><strong>' +place.name + '</strong></h5>');
-                $('#address'+k).append('Address: '+ place.formatted_address);
-                $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
-                $('#website'+k).append('Website: '+place.website);
-                if(place.price_level != null){
-                  $('#price'+k).append('Price level: '+ place.price_level);
-                }
-                if(place.rating != null){
-                  $('#rating'+k).append('Rating: '+place.rating);
-                }
-
-$( ".star label" ).toggle(function() {
-    
-}, function() {
-});
     
