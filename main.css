@@ -7,6 +7,7 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  font-family: 'Montserrat', sans-serif;
 }
 
 /*directions*/
@@ -21,38 +22,22 @@ html, body {
    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
  }
 
- #origin-input,
- #destination-input {
-   background-color: #fff;
-   font-family: Roboto;
-   font-size: 15px;
-   font-weight: 300;
-   margin-left: 12px;
-   padding: 0 11px 0 13px;
-   text-overflow: ellipsis;
-   width: 200px;
- }
-
- #origin-input:focus,
- #destination-input:focus {
-   border-color: #4d90fe;
- }
-
- #mode-selector {
-   color: #fff;
-   background-color: #4d90fe;
-   margin-left: 12px;
-   padding: 5px 11px 0px 11px;
- }
-
- #mode-selector label {
-   font-family: Roboto;
-   font-size: 13px;
-   font-weight: 300;
- }
-
 a.no-margin p{
     margin: 0px;
+}
+
+.tab-content{
+    max-height: 650px;
+    overflow-y:scroll;
+}
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 7px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(150,234,227,.75);
+  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, .5);
 }
 
 .star label.btn.focus, .star label.btn:focus{

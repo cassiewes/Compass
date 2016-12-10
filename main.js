@@ -387,10 +387,10 @@ function initMap() {
                   map: map,
                   position: place.geometry.location
                 });
-                $('#name'+k).append('<h5><strong>' +place.name + '</strong></h5>');
+                $('#name'+k).append('<h4><strong>' +place.name + '</strong></h4>');
                 $('#address'+k).append('Address: '+ place.formatted_address);
                 $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
-                $('#website'+k).append('Website: '+place.website);
+                $('#website'+k).append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
                 if(place.price_level != null){
                   $('#price'+k).append('Price level: '+ place.price_level);
                 }
@@ -435,6 +435,8 @@ function initMap() {
       }, function(response, status) {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
+          console.log(response);
+          moveToLocation();
         } else {
           window.alert('Directions request failed due to ' + status);
         }
@@ -448,6 +450,9 @@ function initMap() {
  }
  });
  }
+<<<<<<< HEAD
 
 
     
+=======
+>>>>>>> origin/master
