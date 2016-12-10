@@ -450,9 +450,3 @@ function initMap() {
  }
  });
  }
-<<<<<<< HEAD
-
-
-    
-=======
->>>>>>> origin/master
