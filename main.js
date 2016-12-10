@@ -36,31 +36,35 @@ function getIndex(location){
     return false;
 }
 
+function addEventListeners(){
+    //function for favoriting a workout location (click star)
+    $(".star label input" ).change(function() {
 
-//function for favoriting a workout location (click star)
-$(".star label input" ).change(function() {
-    
-    //get the html object for location
-    var result = $(this).parents("button").first();
-    
-    //get the  result id of location
-    var resultIdName = result.attr("id");
-    
-    //get result location information
-    var favorite = getLocation(resultIdName);
-        
-    if($(this).first().prop("checked")){
-        favoriteList.push(favorite);
-        console.log("add");
-        console.log(favoriteList);  
-    }else{
-        removeFavorite(favorite);
-        console.log("rm");
-        console.log(favoriteList);  
-    }
-    
-    //add new favorite to favorite list
-});
+        //get the html object for location
+        var result = $(this).parents("button").first();
+
+        //get the  result id of location
+        var resultIdName = result.attr("id");
+
+        //get result location information
+        var favorite = getLocation(resultIdName);
+
+        if($(this).first().prop("checked")){
+            favoriteList.push(favorite);
+            addFavoriteSaved();
+            console.log("add");
+            console.log(favoriteList);  
+        }else{
+            removeFavorite(favorite);
+            console.log("rm");
+            console.log(favoriteList);  
+        }
+
+        //add new favorite to favorite list
+    });
+}
+
+addEventListeners()
 
 
 function removeFavorite(favorite){
@@ -82,6 +86,21 @@ function getLocation(resultIdName){
     var favorite = new Location(name, address,phone,website,price,rating);
     
     return favorite;
+}
+
+function addFavoriteSaved(){
+    var resultTemplate= $(".result-template").clone(true, true);
+    console.log();
+
+    var favorite = favoriteList[favoriteList.length-1];
+    resultTemplate.find("#name").text(favorite.Name);
+    resultTemplate.find("#address").text(favorite.Address);
+    resultTemplate.find("#phone").text(favorite.Phone);
+    resultTemplate.find("#website").text(favorite.Website);
+    resultTemplate.find("#price").text(favorite.Price);
+    resultTemplate.find("#rating").text(favorite.Rating);
+    resultTemplate.removeClass("hidden");
+    $("#liked").append(resultTemplate); 
 }
 
 

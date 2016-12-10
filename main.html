@@ -17,8 +17,8 @@
         </div>
         <div class="col-xs-6">
             <ul class="nav nav-tabs" role="tablist">
-                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#results" role="tab"><h3>Results</h3></a> </li>
-                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#" role="tab"><h3>Liked</h3></a> </li>
+                <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#results" role="tab"><h3>Results</h3></a></li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#liked" role="tab" ><h3>Saved</h3></a></li>
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active fade in" id="results" role="tabpanel">
@@ -26,7 +26,7 @@
                         <button id="result0" type="button" class="btn btn-secondary no-margin list-button width-100 text-left">
                             <div class="btn-group star" data-toggle="buttons">
                                 <label class="btn">
-                                    <input type="checkbox"  autocomplete="off"> <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
+                                    <input type="checkbox" autocomplete="off" > <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
                                 </label>
                             </div>
                             <p id="name0" class="name"></p>
@@ -111,7 +111,24 @@
 
                     </div>
                 </div>
+                
+                
+                <div class="tab-pane fade in" id="liked" role="tabpanel">
+                </div>
+                
+                
             </div>
+        </div>
+        <div class="hidden result-template btn-group btn-secondary width-100" role="group">
+            <button id="result" type="button" class="btn btn-secondary no-margin list-button width-100 text-left">
+                <a class="star" href="#" onClick="removeFavorite()">Remove</a>
+                <p id="name" class="name"></p>
+                <p id="address"></p>
+                <p id="phone"></p>
+                <p id="website"></p>
+                <p id="price"></p>
+                <p id="rating"></p>
+            </button>
         </div>
     </div>
     
