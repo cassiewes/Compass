@@ -7,7 +7,7 @@
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="main.css">
 
-    <meta charset="utf-8"> 
+    <meta charset="utf-8">
 </head>
 
 <body class="container-fluid">
@@ -19,6 +19,8 @@
             <ul class="nav nav-tabs" role="tablist">
                 <li class="nav-item active"> <a class="nav-link" data-toggle="tab" href="#results" role="tab"><h3>Results</h3></a></li>
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#liked" role="tab" ><h3>Saved</h3></a></li>
+                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#directions" role="tab" ><h3>Directions</h3></a></li>
+
             </ul>
             <div class="tab-content">
                 <div class="tab-pane active fade in" id="results" role="tabpanel">
@@ -26,7 +28,7 @@
                         <button id="result0" type="button" class="btn btn-secondary no-margin list-button width-100 text-left">
                             <div class="btn-group star" data-toggle="buttons">
                                 <label class="btn">
-                                    <input type="checkbox" autocomplete="off" > <span class="glyphicon glyphicon-star" aria-hidden="true"></span> 
+                                    <input type="checkbox" autocomplete="off" > <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                                 </label>
                             </div>
                             <p id="name0" class="name"></p>
@@ -43,6 +45,7 @@
                             <p id="website1"></p>
                             <p id="price1"></p>
                             <p id="rating1"></p>
+
                         </tr>
                         <tr id="result2">
                             <p id="name2" class="name"></p>
@@ -51,6 +54,7 @@
                             <p id="website2"></p>
                             <p id="price2"></p>
                             <p id="rating2"></p>
+
                         </tr>
                         <tr id="result3">
                             <p id="name3" class="name"></p>
@@ -59,6 +63,7 @@
                             <p id="website3"></p>
                             <p id="price3"></p>
                             <p id="rating3"></p>
+
                         </tr>
                         <tr id="result4">
                             <p id="name4" class="name"></p>
@@ -67,6 +72,7 @@
                             <p id="website4"></p>
                             <p id="price4"></p>
                             <p id="rating4"></p>
+
                         </tr>
                         <tr id="result5">
                             <p id="name5" class="name"></p>
@@ -75,6 +81,7 @@
                             <p id="website5"></p>
                             <p id="price5"></p>
                             <p id="rating5"></p>
+
                         </tr>
                         <tr id="result6">
                             <p id="name6" class="name"></p>
@@ -83,6 +90,7 @@
                             <p id="website6"></p>
                             <p id="price6"></p>
                             <p id="rating6"></p>
+
                         </tr>
                         <tr id="result7">
                             <p id="name7" class="name"></p>
@@ -91,6 +99,7 @@
                             <p id="website7"></p>
                             <p id="price7"></p>
                             <p id="rating7"></p>
+
                         </tr>
                         <tr id="result8">
                             <p id="name8" class="name"></p>
@@ -99,6 +108,7 @@
                             <p id="website8"></p>
                             <p id="price8"></p>
                             <p id="rating8"></p>
+
                         </tr>
                         <tr id="result9">
                             <p id="name9" class="name"></p>
@@ -111,12 +121,12 @@
 
                     </div>
                 </div>
-                
-                
+
+
                 <div class="tab-pane fade in" id="liked" role="tabpanel">
                 </div>
-                
-                
+
+
             </div>
         </div>
         <div class="hidden result-template btn-group btn-secondary width-100" role="group">
@@ -130,8 +140,15 @@
                 <p id="rating"></p>
             </button>
         </div>
+        <div class="tab-pane fade in" id="directions" role="tabpanel">
+        </div>
+        <div class="hidden directions btn-group btn-secondary width-100" role="group">
+          <button id="direction" type="button" class="btn btn-secondary no-margin list-button width-100 text-left">
+        </button>
+        </div>
+      </div>
     </div>
-    
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDIjmNfoN8B2WFnJNMZ4ivZeltvmpdNplI&libraries=places&callback=initMap" async defer></script>

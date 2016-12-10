@@ -22,7 +22,7 @@ function equal(location1, location2){
     var eq = 0;
     eq = (location1.Name == location2.Name)?eq+0:eq+1;
     eq = (location1.Address == location2.Address)?eq+0:eq+1;
-    eq = (location1.Phone == location2.Phone)?eq+0:eq+1;  
+    eq = (location1.Phone == location2.Phone)?eq+0:eq+1;
     return (eq == 0)?true:false;
 }
 
@@ -30,7 +30,7 @@ function getIndex(location){
     var i;
     for(i = 0; i < favoriteList.length; i++){
         if(equal(favoriteList[i], location)){
-           return i;   
+           return i;
         }
     }
     return false;
@@ -53,11 +53,11 @@ function addEventListeners(){
             favoriteList.push(favorite);
             addFavoriteSaved();
             console.log("add");
-            console.log(favoriteList);  
+            console.log(favoriteList);
         }else{
             removeFavorite(favorite);
             console.log("rm");
-            console.log(favoriteList);  
+            console.log(favoriteList);
         }
 
         //add new favorite to favorite list
@@ -74,7 +74,7 @@ function removeFavorite(favorite){
 
 function getLocation(resultIdName){
     var resultNumber = resultIdName.charAt(resultIdName.length-1);
-    
+
     //create new Location object from result info
     var name = $('#name'+resultNumber).text();
     var address = $('#address'+resultNumber).text();
@@ -82,9 +82,9 @@ function getLocation(resultIdName){
     var website = $('#website'+resultNumber).text();
     var price = $('#price'+resultNumber).text();
     var rating = $('#rating'+resultNumber).text();
-    
+
     var favorite = new Location(name, address,phone,website,price,rating);
-    
+
     return favorite;
 }
 
@@ -100,7 +100,7 @@ function addFavoriteSaved(){
     resultTemplate.find("#price").text(favorite.Price);
     resultTemplate.find("#rating").text(favorite.Rating);
     resultTemplate.removeClass("hidden");
-    $("#liked").append(resultTemplate); 
+    $("#liked").append(resultTemplate);
 }
 
 
@@ -416,11 +416,11 @@ function initMap() {
                 if(place.rating != null){
                   $('#rating'+k).append('Rating: '+place.rating);
                 }
-                k++;
                 google.maps.event.addListener(marker, 'click', function() {
                   route(addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
+                k++;
               }
             });
         }
@@ -455,7 +455,10 @@ function initMap() {
         if (status === 'OK') {
           directionsDisplay.setDirections(response);
           console.log(response);
-          moveToLocation();
+          for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
+            var instruction = response.routes[0].legs[0].steps[i].instructions
+            $('#directions').replaceWith(instruction + '<br>');
+          }
         } else {
           window.alert('Directions request failed due to ' + status);
         }
