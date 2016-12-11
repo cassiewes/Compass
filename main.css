@@ -148,3 +148,16 @@ span{
   float:right;
   padding-right: 2px;
 }
+
+.glyphicon{
+  	display:inline-block;
+    position: absolute;
+    padding-top: 56px;
+    top: 1%;
+    left: 97.5%;
+    right: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    font-size: 2.5em;
+    color: #67696d;
+}
