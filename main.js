@@ -8,6 +8,7 @@ var locate;
 var addressPlaceID;
 var activities;
 var favoriteList = [];
+var mode;
 
 function Location(name, address, phone, website, price, rating){
     this.Name = name;
@@ -104,7 +105,7 @@ function addFavoriteSaved(){
 }
 
 function message(travel_mode,activities,address){
-  var mode = "";
+  mode = "";
   var a = "";
   if (travel_mode == "WALKING")
   {
@@ -169,6 +170,7 @@ function getInfo(){
 }
 
 function removeFirst(){
+  $('#titleD').empty();
   $('#nameD').empty();
   $('#addressD').empty();
   $('#phoneD').empty();
@@ -176,12 +178,14 @@ function removeFirst(){
   $('#priceD').empty();
   $('#ratingD').empty();
   $('#b').empty();
+  $('#writtenDirections').empty();
   initMap();
 
 }
 
 function makeFirst(place){
-  $('#nameD').append('<h4><strong>' +place.name + '</strong></h4>');
+  $('#titleD').append("<h4><i> You've selected: </i></h4>")
+  $('#nameD').append('<br><h5>' +place.name + '</h5>');
   $('#addressD').append('Address: '+ place.formatted_address);
   $('#phoneD').append('Phone: ' +place.formatted_phone_number);
   $('#websiteD').append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
@@ -535,9 +539,10 @@ function initMap() {
           makeFirst(place)
           directionsDisplay.setDirections(response);
           console.log(response);
+          $('#writtenDirections').append('To '+mode+' there: <br>')
           for(i = 0; i < response.routes[0].legs[0].steps.length; i++){
             var instruction = response.routes[0].legs[0].steps[i].instructions
-            $('#directions').replaceWith(instruction + '<br>');
+            $('#writtenDirections').append(instruction + '<br>');
           }
         } else {
           window.alert('Directions request failed due to ' + status);
