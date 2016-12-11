@@ -70,7 +70,8 @@ addEventListeners()
 
 function removeFavorite(favorite){
     var index = getIndex(favorite);
-    favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length+1));
+    favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
+    addFavoriteSaved();
 }
 
 function getLocation(resultIdName){
@@ -90,18 +91,29 @@ function getLocation(resultIdName){
 }
 
 function addFavoriteSaved(){
+    
     var resultTemplate= $(".result-template").clone(true, true);
-    console.log();
-
-    var favorite = favoriteList[favoriteList.length-1];
-    resultTemplate.find("#name").text(favorite.Name);
-    resultTemplate.find("#address").text(favorite.Address);
-    resultTemplate.find("#phone").text(favorite.Phone);
-    resultTemplate.find("#website").text(favorite.Website);
-    resultTemplate.find("#price").text(favorite.Price);
-    resultTemplate.find("#rating").text(favorite.Rating);
-    resultTemplate.removeClass("hidden");
-    $("#liked").append(resultTemplate);
+    
+    $("#liked").html("<p></p>");
+    
+    console.log("Result");
+    
+    console.log(resultTemplate);
+    
+    var i;
+    for(i = 0; i < favoriteList.length; i++){
+        var favorite = favoriteList[i];
+        resultTemplate.find("#name").text(favorite.Name);
+        resultTemplate.find("#address").text(favorite.Address);
+        resultTemplate.find("#phone").text(favorite.Phone);
+        resultTemplate.find("#website").text(favorite.Website);
+        resultTemplate.find("#price").text(favorite.Price);
+        resultTemplate.find("#rating").text(favorite.Rating);
+        resultTemplate.removeClass("hidden"); 
+        resultTemplate.removeAttr("id");
+        
+        $("#liked").append(resultTemplate);
+    }   
 }
 
 function message(travel_mode,activities,address){
