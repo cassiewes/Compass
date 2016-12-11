@@ -184,11 +184,24 @@ function removeFirst(){
 }
 
 function makeFirst(place){
+  $('#titleD').empty();
+  $('#nameD').empty();
+  $('#addressD').empty();
+  $('#phoneD').empty();
+  $('#websiteD').empty();
+  $('#priceD').empty();
+  $('#ratingD').empty();
+  $('#b').empty();
+  $('#writtenDirections').empty();
   $('#titleD').append("<h4><i> You've selected: </i></h4>")
   $('#nameD').append('<br><h5>' +place.name + '</h5>');
   $('#addressD').append('Address: '+ place.formatted_address);
-  $('#phoneD').append('Phone: ' +place.formatted_phone_number);
-  $('#websiteD').append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+  if(place.phone != null){
+    $('#phoneD').append('Phone: ' +place.formatted_phone_number);
+  }
+  if(place.website != null){
+    $('#websiteD').append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+  }
   if(place.price_level != null){
     $('#priceD').append('Price level: '+ place.price_level);
   }
@@ -491,8 +504,12 @@ function initMap() {
                 $('#rating'+k).empty()
                 $('#name'+k).append('<h4><strong>' +place.name + '</strong></h4>');
                 $('#address'+k).append('Address: '+ place.formatted_address);
-                $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
-                $('#website'+k).append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+                if (place.phone != null){
+                  $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
+                }
+                if (place.website != null){
+                  $('#website'+k).append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+                }
                 if(place.price_level != null){
                   $('#price'+k).append('Price level: '+ place.price_level);
                 }
