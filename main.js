@@ -103,6 +103,44 @@ function addFavoriteSaved(){
     $("#liked").append(resultTemplate);
 }
 
+function message(travel_mode,activities,address){
+  var mode = "";
+  var a = "";
+  if (travel_mode == "WALKING")
+  {
+    mode = "walk"
+  }
+  if (travel_mode == "DRIVING")
+  {
+    mode = "drive"
+  }
+  if(travel_mode == "TRANSIT"){
+    mode = "take the transit"
+  }
+  $('#meth').empty()
+  $('#meth').append(mode);
+  if(activities.length ==2){
+    a = activities[1];
+  }
+  else if(activities.length==3){
+    a = activities[1] + " or " + activities[2];
+  }
+  else{
+    for(i = 1; i < activities.length -1; i++){
+        a = a + activities[i] + ", "
+    }
+    a = a + "or" + activities[activities.length-1];
+  }
+  $('#active').empty();
+  $('#add').empty();
+  $('#active').append(a);
+  $('#add').append(address + ".")
+
+}
+
+function backAddress(){
+  location.href = "address.html#" + parts[0] + "&" + parts[1];
+}
 
 function getInfo(){
   method = window.location.hash.substr(1);
@@ -127,8 +165,34 @@ function getInfo(){
   }
   address = parts[2].split('=');
   address = address[1].split('+').join(' ');
+  message(travel_mode, keywords, address);
 }
 
+function removeFirst(){
+  $('#nameD').empty();
+  $('#addressD').empty();
+  $('#phoneD').empty();
+  $('#websiteD').empty();
+  $('#priceD').empty();
+  $('#ratingD').empty();
+  $('#b').empty();
+  initMap();
+
+}
+
+function makeFirst(place){
+  $('#nameD').append('<h4><strong>' +place.name + '</strong></h4>');
+  $('#addressD').append('Address: '+ place.formatted_address);
+  $('#phoneD').append('Phone: ' +place.formatted_phone_number);
+  $('#websiteD').append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+  if(place.price_level != null){
+    $('#priceD').append('Price level: '+ place.price_level);
+  }
+  if(place.rating != null){
+    $('#ratingD').append('Rating: '+place.rating);
+  }
+  $("#b").append("<input type=\"button\" id=\"x\" onClick=\"removeFirst()\" value=\"x\"/>")
+}
 function initMap() {
     getInfo();
     var geocoder = new google.maps.Geocoder;
@@ -406,6 +470,21 @@ function initMap() {
                   map: map,
                   position: place.geometry.location
                 });
+                var infowindow = new google.maps.InfoWindow({
+                  content: place.name,
+                });
+                marker.addListener('mouseover', function() {
+                  infowindow.open(map, this);
+                });
+                marker.addListener('mouseout', function() {
+                  infowindow.close()
+                });
+                $('#name'+k).empty()
+                $('#address'+k).empty()
+                $('#phone'+k).empty()
+                $('#website'+k).empty()
+                $('#price'+k).empty()
+                $('#rating'+k).empty()
                 $('#name'+k).append('<h4><strong>' +place.name + '</strong></h4>');
                 $('#address'+k).append('Address: '+ place.formatted_address);
                 $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
@@ -417,7 +496,7 @@ function initMap() {
                   $('#rating'+k).append('Rating: '+place.rating);
                 }
                 google.maps.event.addListener(marker, 'click', function() {
-                  route(addressPlaceID, place.place_id, travel_mode,
+                  route(place,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
                 k++;
@@ -442,7 +521,7 @@ function initMap() {
     }
 
 
-    function route(origin_place_id, destination_place_id, travel_mode,
+    function route(place,origin_place_id, destination_place_id, travel_mode,
                    directionsService, directionsDisplay) {
       if (!origin_place_id || !destination_place_id) {
         return;
@@ -453,6 +532,7 @@ function initMap() {
         travelMode: travel_mode
       }, function(response, status) {
         if (status === 'OK') {
+          makeFirst(place)
           directionsDisplay.setDirections(response);
           console.log(response);
           for(i = 0; i < response.routes[0].legs[0].steps.length; i++){

@@ -12,6 +12,14 @@
 
 <body class="container-fluid">
     <div class="row">
+        <div class="jumbotron">
+          <br>
+          <h1> Compass </h1>
+            <p id = "fitness">find your fitness.</p>
+        </div>
+        <h4 id = "message"> You're looking to <span id=meth></span> to <span id = active></span> from <span id = add></add></h4>
+        <p id="redirect"> Not exactly what you were looking for? <a href="index.html">Start a new search!</a></p>
+        <br>
         <div class="col-xs-6">
             <div id="map"></div>
         </div>
@@ -22,6 +30,17 @@
                 <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#directions" role="tab" ><h3>Directions</h3></a></li>
 
             </ul>
+            <tr>
+              <div id = "dir">
+              <div id = "b"></div>
+              <p id="nameD" class="name"></p>
+              <p id="addressD"></p>
+              <p id="phoneD"></p>
+              <p id="websiteD"></p>
+              <p id="priceD"></p>
+              <p id="ratingD"></p>
+            </tr>
+          </div>
             <div class="tab-content">
                 <div class="tab-pane active fade in" id="results" role="tabpanel">
                     <div class="btn-group btn-secondary width-100" role="group">
@@ -155,6 +174,7 @@
     <script type='text/javascript' src="main.js"></script>
     <script type='text/javascript' src="script.js"></script>
     <script type='text/javascript' src="activity.js"></script>
+    <input type="button" id="back" onClick="backAddress()" value="back"/>
 </body>
 
 </html>
