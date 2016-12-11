@@ -2,8 +2,44 @@ body{
   background-image: url(yogapic.png);
   background-size: 100% auto;
 }
-.faq {
+h{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 42px;
+  color: #67696d;
+}
+p{
+  font-family: 'Montserrat', sans-serif;
+  font-size: 35px;
+  color: #eaedf2;
+}
+#back {
+	background-color:#eaedf2;
+	-moz-border-radius:39px;
+	-webkit-border-radius:39px;
+	border-radius:39px;
+	border:1px solid #67696d;
+	display:inline-block;
+	cursor:pointer;
+	color:#67696d;
+	font-family: 'Montserrat', sans-serif;
+	font-size:20px;
+	padding:5px 30px;
+	text-decoration:none;
+  margin: 0;
+  position: absolute;
+  top: 5%;
+  left: 5%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%);
+}
+
+#back:hover {
+	background-color:#67696d;
+  color: #eaedf2;
+}
+h1{
   font-family: 'Montserrat', sans-serif;
   font-size: 50px;
   color: #67696d;
+  text-align: center;
 }

@@ -540,8 +540,7 @@ function initMap() {
         infowindow.open(map, this);
       });
     }
-
-
+    
     function route(place,origin_place_id, destination_place_id, travel_mode,
                    directionsService, directionsDisplay) {
       if (!origin_place_id || !destination_place_id) {
