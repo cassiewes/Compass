@@ -24,7 +24,7 @@
 
 #directions{
   width: 50%;
-  float: left; 
+  float: left;
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {
@@ -160,5 +160,7 @@ span{
     margin-right: -50%;
     transform: translate(-50%, -50%);
     font-size: 2.5em;
-    color: #67696d;
+}
+.glyphicon:hover{
+  color: #67696d
 }
