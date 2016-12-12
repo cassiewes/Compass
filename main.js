@@ -315,7 +315,7 @@ function makeFirst(placeId){
   $('#titleD').append("<h4><i> You've selected: </i></h4>")
   $('#nameD').append(place.Name);
   $('#addressD').append( place.Address);
-  if(place.Phone != null){
+  if(place.phone != null){
     $('#phoneD').append(place.Phone);
   }
   if(place.Website != null){
@@ -611,7 +611,6 @@ function initMap() {
               placeId: results[i].place_id,
             }, function(place, status) {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
-
                 //Creates a marker for each result
                 var marker = new google.maps.Marker({
                   icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
@@ -633,19 +632,13 @@ function initMap() {
                     var location = new Location(place.place_id,
                                                  place.name,
                                                  place.formatted_address,
-                                                 place.phone,
+                                                 place.formatted_phone_number,
                                                  place.website,
                                                  place.price_level,
                                                  place.rating);
                     displayResult(location);
                 }
 
-                //Displays information / directions on click
-                        $(".show-directions").click(function(){
-
-                            route(place.place_id,addressPlaceID, place.place_id, travel_mode,
-                                directionsService, directionsDisplay);
-                            });
                 //Displays information directions on click of favorites
                 if(setFavDirListener){
                     $(".show-fav-directions").click(function(){
@@ -661,9 +654,17 @@ function initMap() {
                 }
                 //Displays information / directions on marker click
                 google.maps.event.addListener(marker, 'click', function() {
+                  window.alert(place.name);
                   route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
+
+                //Displays information / directions on click
+                        $(".show-directions").click(function(){
+                            window.alert(place.name)
+                            route(place.place_id,addressPlaceID, place.place_id, travel_mode,
+                                directionsService, directionsDisplay);
+                            });
 
                 k++;
               }
