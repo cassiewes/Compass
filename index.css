@@ -50,3 +50,13 @@ body{
 #walk:hover, #drive:hover, #transit:hover{
   font-style:italic;
 }
+
+#example{
+    position:absolute;
+   top: 85%;
+   text-align: center;
+   left: 35%;
+   font-family: 'Montserrat', sans-serif;
+   font-size:20px;
+   color: #eaedf2;
+}

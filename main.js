@@ -14,6 +14,13 @@ var generateResults = true;
 var setFavDirListener = true;
 
 
+function conf(){
+  var r = confirm("Are you sure you'd like to leave this page?");
+  if(r == true){
+    window.location = "index.html"
+  }
+}
+
 function mainFAQ(){
   var method = window.location.hash.substr(1);
   location.href="faq.html#"+method;
