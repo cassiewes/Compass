@@ -607,11 +607,11 @@ function initMap() {
       if (status === google.maps.places.PlacesServiceStatus.OK) {
         //For each result:
         for (var i = 0; i < results.length; i++) {
-          createMarker(results[i]);
           service.getDetails({
               placeId: results[i].place_id,
             }, function(place, status) {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+
                 //Creates a marker for each result
                 var marker = new google.maps.Marker({
                   icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
@@ -629,7 +629,6 @@ function initMap() {
                 marker.addListener('mouseout', function() {
                   infowindow.close()
                 });
-
                 if(generateResults){
                     var location = new Location(place.place_id,
                                                  place.name,
