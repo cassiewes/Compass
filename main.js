@@ -182,7 +182,7 @@ function message(travel_mode,activities,address){
     for(i = 1; i < activities.length -1; i++){
         a = a + activities[i] + ", "
     }
-    a = a + "or" + activities[activities.length-1];
+    a = a + " or " + activities[activities.length-1];
   }
   $('#active').empty();
   $('#add').empty();
