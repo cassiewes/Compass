@@ -68,7 +68,10 @@
 <!-------------------------------------Templates--------------------------------------------------------->
         <div id= "place_id" class="favorite-template hidden btn-group btn-secondary width-100" role="group">
             <button id="result" type="button" class="btn btn-secondary no-margin list-button width-100 text-left">
-                <a class="star remove-link">Remove</a>
+                <div class="row">
+                    <a class="star show-fav-directions">Directions</a>
+                    <a class="star remove-link">Remove</a>
+                </div>
                 <p class="name"></p>
                 <p class="address"></p>
                 <p class="phone"></p>
@@ -79,11 +82,14 @@
         </div>
 
         <button  id= "place_id" type="button" class="result-template hidden btn btn-secondary no-margin list-button width-100 text-left">
+            <div class= "row">
             <div class="btn-group star" data-toggle="buttons">
                 <label
                     class="btn">
                     <input type="checkbox" autocomplete="off" > <span class="glyphicon glyphicon-star" aria-hidden="true"></span>
                 </label>
+            </div>
+            <a class="star show-directions">Directions</a>
             </div>
             <p class="name"></p>
             <p class="address"></p>

@@ -171,3 +171,7 @@ a.no-margin p{
 #qMark:hover{
   color: #67696d
 }
+
+.show-directions, .show-fav-directions, .remove-link{
+    padding: 6px 12px;
+}

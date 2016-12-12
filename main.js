@@ -10,43 +10,9 @@ var activities;
 var resultList = [];
 var mode;
 var favoriteList = [];
+var generateResults = true;
+var setFavDirListener = true;
 
-$(window).on("load",function(){
-    var temp = JSON.parse(localStorage.getItem("favoriteList"));
-    console.log("LOAD");
-    console.log(temp);
-    reloadFavorites(temp);
-});
-
-function reloadFavorites(tempList){
-    var id;
-    var i;
-    for(i = 0; i < tempList.length; i++){
-        id = tempList[i].Id;
-        $("#result-pane "+"#"+id+" label").trigger("click");
-        
-        if($("#result-pane "+"#"+id+" label").length == 0){
-            var favorite = new Location(
-                        tempList[i].Id,
-                        tempList[i].Name,
-                        tempList[i].Address,
-                        tempList[i].Phone,
-                        tempList[i].Website,
-                        tempList[i].Price,
-                        tempList[i].Rating);
-            favoriteList.push(favorite)
-            addFavoriteSaved(id);
-        }
-    }
-}
-
-$(window).on("unload",function(){
-    if(favoriteList.length != 0){
-        localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
-    }else{
-        localStorage.setItem("favoriteList", []);
-    }
-});
 
 function mainFAQ(){
   var method = window.location.hash.substr(1);
@@ -58,6 +24,58 @@ function mainBack(){
   location.href="main.html#"+method;
 }
 
+window.onbeforeunload = function(){ 
+    console.log("UNLOAD");
+    console.log(favoriteList);
+    
+    if(favoriteList.length != 0){
+        localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+    }else{
+        localStorage.setItem("favoriteList", []);
+    }
+};
+
+function onLoad(){
+    console.log("LOAD");
+
+    var temp = localStorage.getItem("favoriteList");
+    console.log(temp);
+    if( temp == null || temp == undefined || temp.length ==0){
+        return;
+    }
+    temp = JSON.parse(localStorage.getItem("favoriteList"));
+    reloadFavorites(temp);
+}
+
+$(window).on("load", function(){
+    onLoad();
+});
+
+
+function reloadFavorites(tempList){
+    var id;
+    var i;
+    for(i = 0; i < tempList.length; i++){
+        id = tempList[i].Id;
+        
+        if($("#"+id).length == 0){
+            var favorite = new Location(
+                        tempList[i].Id,
+                        tempList[i].Name,
+                        tempList[i].Address,
+                        tempList[i].Phone,
+                        tempList[i].Website,
+                        tempList[i].Price,
+                        tempList[i].Rating);
+            favoriteList.push(favorite);
+            addFavoriteSaved(id);
+        }
+        else{
+            $("#result-pane "+"#"+id+" label").trigger("click");
+        }
+    }
+}
+
 function Location(id, name, address, phone, website, price, rating){
     this.Id = id;
     this.Name = name;
@@ -66,8 +84,8 @@ function Location(id, name, address, phone, website, price, rating){
     this.Website = website;
     this.Price = price;
     this.Rating = rating;
-    this.favorite = false;
 }
+
 
 function getTemplate(name){
     var temp = $("."+name).clone(true, true);
@@ -94,12 +112,13 @@ function displayResult(place){
     if(place.Rating != null){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
-
+    
     $("#result-pane").append(resultHtml);
 
     var id = $("#result-pane").find("#"+place.Id).attr("id");
 
     var result = $("#result-pane"+" "+"#"+id);
+    
     resultList.push(getLocation(result));
 }
 
@@ -121,8 +140,9 @@ function getIndex(locationId){
 
 function addEventListeners(){
     //function for favoriting a workout location (click star)
-    $(".star label input" ).change(function() {
+    $(".star label input" ).change(function(event) {
         //get the html object for location
+        
         var result = $(this).parents("button").first();
 
         //get result location information
@@ -131,21 +151,23 @@ function addEventListeners(){
         if($(this).first().prop("checked")){
             favoriteList.push(favorite);
             addFavoriteSaved(favorite.Id);
+            
             console.log("add");
             console.log(favoriteList);
         }else{
             removeFavorite(favorite.Id);
+            
             console.log("rm");
             console.log(favoriteList);
         }
-
-        //add new favorite to favorite list
     });
     
-    $(".remove-link").click(function(){
-        var id= $(this).parents("div").first().attr("id");
-        $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
-        
+    $(".remove-link").click(function(event){
+        var id = $(this).parents(".btn-group").first().attr("id");
+        $("#result-pane"+" #"+id+" "+"label").first().trigger("click"); 
+        if($("#result-pane"+" #"+id+" "+"label").first().length == 0){
+            removeFavorite(id);
+        }
     });
 }
 
@@ -154,7 +176,6 @@ addEventListeners();
 
 function removeFavorite(favoriteId){
     var index = getIndex(favoriteId);
-    console.log(index);
     favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
     $("#liked"+" "+"#"+favoriteId).remove();
 }
@@ -267,10 +288,13 @@ function removeFirst(){
   $('#b').empty();
   $('#writtenDirections').empty();
   $('#timeEst').empty();
+    
+  generateResults = false;
   initMap();
 }
 
-function makeFirst(place){
+function makeFirst(placeId){
+  var place = getLocation($("#"+placeId).first());   
   $('#titleD').empty();
   $('#nameD').empty();
   $('#addressD').empty();
@@ -281,22 +305,23 @@ function makeFirst(place){
   $('#b').empty();
   $('#writtenDirections').empty();
   $('#titleD').append("<h4><i> You've selected: </i></h4>")
-  $('#nameD').append('<br><h5>' +place.name + '</h5>');
-  $('#addressD').append('Address: '+ place.formatted_address);
-  if(place.phone != null){
-    $('#phoneD').append('Phone: ' +place.formatted_phone_number);
+  $('#nameD').append(place.Name);
+  $('#addressD').append( place.Address);
+  if(place.Phone != null){
+    $('#phoneD').append(place.Phone);
   }
-  if(place.website != null){
-    $('#websiteD').append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
+  if(place.Website != null){
+    $('#websiteD').append('<a href=\"'+place.Website+'\">'+place.Website+'</a>');
   }
-  if(place.price_level != null){
-    $('#priceD').append('Price level: '+ place.price_level);
+  if(place.Price != null){
+    $('#priceD').append(place.Price);
   }
-  if(place.rating != null){
-    $('#ratingD').append('Rating: '+place.rating);
+  if(place.Rating != null){
+    $('#ratingD').append(place.Rating);
   }
   $("#b").append("<input type=\"button\" id=\"x\" onClick=\"removeFirst()\" value=\"x\"/>")
 }
+
 function initMap() {
     getInfo();
     var geocoder = new google.maps.Geocoder;
@@ -563,7 +588,7 @@ function initMap() {
     function callback(results, status) {
       var k = 0;
       if (status === google.maps.places.PlacesServiceStatus.OK) {
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < results.length; i++) {
           createMarker(results[i]);
           service.getDetails({
               placeId: results[i].place_id,
@@ -583,19 +608,46 @@ function initMap() {
                 marker.addListener('mouseout', function() {
                   infowindow.close()
                 });
+                  
+                if(generateResults){
+                    var location = new Location(place.place_id,
+                                                 place.name,
+                                                 place.formatted_address,
+                                                 place.phone,
+                                                 place.website,
+                                                 place.price_level,
+                                                 place.rating);
+                    displayResult(location);  
+                }
+                  
+                  <!-------------------------------------------Issues Addind listener on results, Worksfor favorites----------------> 
+    
+                    
+                        $(".show-directions").click(function(){
 
-                displayResult(new Location(place.place_id,
-                                             place.name,
-                                             place.formatted_address,
-                                             place.phone,
-                                             place.website,
-                                             place.price_level,
-                                             place.rating));
+                            route(place.place_id,addressPlaceID, place.place_id, travel_mode,
+                                directionsService, directionsDisplay);
+                            });
+               
+                <!----------------------------------------------------------------------------------------------------->
+                if(setFavDirListener){
+                    $(".show-fav-directions").click(function(){
+                        var id =  $(this).parents(".btn-group").first().attr("id");
+                        
+                      route(id, addressPlaceID, id
+                            ,travel_mode,
+                            directionsService, directionsDisplay);
+                     
+                    });
 
+                    setFavDirListener = false;
+                }
+                  
                 google.maps.event.addListener(marker, 'click', function() {
-                  route(place,addressPlaceID, place.place_id, travel_mode,
+                  route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
+                  
                 k++;
               }
             });
@@ -628,7 +680,7 @@ function initMap() {
         travelMode: travel_mode
       }, function(response, status) {
         if (status === 'OK') {
-          makeFirst(place)
+          makeFirst(place);
           directionsDisplay.setDirections(response);
           console.log(response);
           $('#writtenDirections').append('To '+mode+' there: <br>')
