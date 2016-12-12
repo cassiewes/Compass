@@ -30,7 +30,7 @@ function getTemplate(name){
     return temp;
 }
 
-function displayResult(place){    
+function displayResult(place){
     var resultHtml = getTemplate("result-template");
     resultHtml.attr("id", ""+place.Id);
     resultHtml.find(".name").append('<h4><strong>' + place.Name + '</strong></h4>');
@@ -48,13 +48,13 @@ function displayResult(place){
     if(place.Rating != null){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
-    
+
     $("#result-pane").append(resultHtml);
     addEventListeners();
 }
 
 
-                
+
 function equal(location1, location2){
     var eq = 0;
     eq = (location1.Name == location2.Name)?eq+0:eq+1;
@@ -108,7 +108,7 @@ function removeFavorite(favorite){
 }
 
 function getLocation(result){
-    
+
     //create new Location object from result info
     var id = result.attr("id");
     var name = result.find(".name").text();
@@ -124,26 +124,26 @@ function getLocation(result){
 }
 
 function addFavoriteSaved(){
-    
+
     var resultTemplate= $(".favorite-template").clone(true, true);
-    
+
     $("#liked").html("");
-    
+
     var i;
     for(i = 0; i < favoriteList.length; i++){
         var favorite = favoriteList[i];
-        
+
         resultTemplate.attr("id", favorite.ID);
-        
+
         resultTemplate.find("#name").text(favorite.Name); resultTemplate.find("#address").text(favorite.Address);
         resultTemplate.find("#phone").text(favorite.Phone);
         resultTemplate.find("#website").text(favorite.Website);
         resultTemplate.find("#price").text(favorite.Price);
         resultTemplate.find("#rating").text(favorite.Rating);
-        resultTemplate.removeClass("hidden"); 
-        
+        resultTemplate.removeClass("hidden");
+
         $("#liked").append(resultTemplate);
-    }   
+    }
 }
 
 function message(travel_mode,activities,address){
@@ -209,6 +209,10 @@ function getInfo(){
   address = parts[2].split('=');
   address = address[1].split('+').join(' ');
   message(travel_mode, keywords, address);
+}
+
+//function display(){
+  destination_id = this.Id;
 }
 
 function removeFirst(){
@@ -538,7 +542,7 @@ function initMap() {
                 marker.addListener('mouseout', function() {
                   infowindow.close()
                 });
-                
+
                 displayResult(new Location(place.place_id,
                                              place.name,
                                              place.formatted_address,
@@ -546,14 +550,14 @@ function initMap() {
                                              place.website,
                                              place.price_level,
                                              place.rating));
-                
+
                 google.maps.event.addListener(marker, 'click', function() {
                   route(place,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
                 k++;
               }
-            });        
+            });
         }
       }
     }
@@ -571,7 +575,7 @@ function initMap() {
         infowindow.open(map, this);
       });
     }
-    
+
     function route(place,origin_place_id, destination_place_id, travel_mode,
                    directionsService, directionsDisplay) {
       if (!origin_place_id || !destination_place_id) {

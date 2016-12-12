@@ -23,7 +23,8 @@
 }
 
 #directions{
-
+  width: 50%;
+  float: left; 
 }
 /* Optional: Makes the sample page fill the window. */
 html, body {

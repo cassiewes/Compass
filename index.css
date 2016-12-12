@@ -19,13 +19,17 @@ body{
 .glyphicon{
   	display:inline-block;
     position: absolute;
-    padding-top: 56px;
-    top: 10%;
+    padding-top: 5px;
+    top: 5%;
     left: 97.5%;
     right: 50%;
     margin-right: -50%;
     transform: translate(-50%, -50%);
     font-size: 2.5em;
+}
+
+.glyphicon:hover{
+  color: #67696d
 }
 
 #walk:hover, #drive:hover, #transit:hover{

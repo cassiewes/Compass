@@ -110,3 +110,14 @@ function go(){
 function back(){
   location.href = "index.html";
 }
+
+function backFAQ(){
+  var transit = window.location.hash.substr(1);
+  t = transit.split("&")[0];
+  location.href="activity.html#"+t;
+}
+
+function FAQ(){
+  getTransit()
+  location.href="faq_activities.html#"+method;
+}

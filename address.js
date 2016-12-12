@@ -6,6 +6,16 @@ function b(){
   location.href="activity.html#"+t;
 }
 
+function addressFAQ(){
+  var method = window.location.hash.substr(1);
+  location.href="faq_address.html#"+method;
+}
+
+function ab(){
+  var method = window.location.hash.substr(1);
+  location.href="address.html#"+method;
+}
+
 $(document).ready(function() {
   document.getElementById('info').addEventListener('submit', function (e) {
     e.preventDefault();
