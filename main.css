@@ -148,7 +148,7 @@ a.no-margin p{
   color: #eaedf2;
 }
 
-span{
+#meth, #active, #add{
   color: rgb(121,182,105);
 }
 
@@ -157,7 +157,7 @@ span{
   padding-right: 2px;
 }
 
-.glyphicon{
+#qMark{
   	display:inline-block;
     position: absolute;
     padding-top: 56px;
@@ -168,6 +168,6 @@ span{
     transform: translate(-50%, -50%);
     font-size: 2.5em;
 }
-.glyphicon:hover{
+#qMark:hover{
   color: #67696d
 }
