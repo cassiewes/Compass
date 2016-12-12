@@ -7,11 +7,46 @@ var address = "";
 var locate;
 var addressPlaceID;
 var activities;
-var favoriteList = [];
 var resultList = [];
 var mode;
-var DISPLAYINTERVAL = 10;
-var DISPLAYSTART= 0;
+var favoriteList = [];
+
+$(window).on("load",function(){
+    var temp = JSON.parse(localStorage.getItem("favoriteList"));
+    console.log("LOAD");
+    console.log(temp);
+    reloadFavorites(temp);
+});
+
+function reloadFavorites(tempList){
+    var id;
+    var i;
+    for(i = 0; i < tempList.length; i++){
+        id = tempList[i].Id;
+        $("#result-pane "+"#"+id+" label").trigger("click");
+        
+        if($("#result-pane "+"#"+id+" label").length == 0){
+            var favorite = new Location(
+                        tempList[i].Id,
+                        tempList[i].Name,
+                        tempList[i].Address,
+                        tempList[i].Phone,
+                        tempList[i].Website,
+                        tempList[i].Price,
+                        tempList[i].Rating);
+            favoriteList.push(favorite)
+            addFavoriteSaved(id);
+        }
+    }
+}
+
+$(window).on("unload",function(){
+    if(favoriteList.length != 0){
+        localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
+    }else{
+        localStorage.setItem("favoriteList", []);
+    }
+});
 
 function mainFAQ(){
   var method = window.location.hash.substr(1);
@@ -70,18 +105,14 @@ function displayResult(place){
 
 
 
-function equal(location1, location2){
-    var eq = 0;
-    eq = (location1.Name == location2.Name)?eq+0:eq+1;
-    eq = (location1.Address == location2.Address)?eq+0:eq+1;
-    eq = (location1.Phone == location2.Phone)?eq+0:eq+1;
-    return (eq == 0)?true:false;
+function equal(location1, location2Id){
+    return (location1.Id == location2Id);
 }
 
-function getIndex(location){
+function getIndex(locationId){
     var i;
     for(i = 0; i < favoriteList.length; i++){
-        if(equal(favoriteList[i], location)){
+        if(equal(favoriteList[i], locationId)){
            return i;
         }
     }
@@ -91,7 +122,6 @@ function getIndex(location){
 function addEventListeners(){
     //function for favoriting a workout location (click star)
     $(".star label input" ).change(function() {
-
         //get the html object for location
         var result = $(this).parents("button").first();
 
@@ -100,27 +130,33 @@ function addEventListeners(){
 
         if($(this).first().prop("checked")){
             favoriteList.push(favorite);
-            addFavoriteSaved();
+            addFavoriteSaved(favorite.Id);
             console.log("add");
             console.log(favoriteList);
         }else{
-            removeFavorite(favorite);
+            removeFavorite(favorite.Id);
             console.log("rm");
             console.log(favoriteList);
         }
 
         //add new favorite to favorite list
     });
+    
+    $(".remove-link").click(function(){
+        var id= $(this).parents("div").first().attr("id");
+        $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
+        
+    });
 }
 
-addEventListeners()
+addEventListeners();
 
 
-function removeFavorite(favorite){
-    var index = getIndex(favorite);
+function removeFavorite(favoriteId){
+    var index = getIndex(favoriteId);
+    console.log(index);
     favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
-    console.log($("#liked"));
-    $("#liked"+" "+"#"+favorite.Id).remove();
+    $("#liked"+" "+"#"+favoriteId).remove();
 }
 
 function getLocation(result){
@@ -139,13 +175,14 @@ function getLocation(result){
     return favorite;
 }
 
-function addFavoriteSaved(){
+function addFavoriteSaved(id){
     var resultTemplate= getTemplate("favorite-template");
-    var favorite = favoriteList[favoriteList.length-1];
+    var index = getIndex(id);
+    var favorite = favoriteList[index];
 
     resultTemplate.attr("id", favorite.Id);
-
-    resultTemplate.find(".name").text(favorite.Name); resultTemplate.find(".address").text(favorite.Address);
+    resultTemplate.find(".name").text(favorite.Name); 
+    resultTemplate.find(".address").text(favorite.Address);
     resultTemplate.find(".phone").text(favorite.Phone);
     resultTemplate.find(".website").text(favorite.Website);
     resultTemplate.find(".price").text(favorite.Price);
