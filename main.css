@@ -1,6 +1,11 @@
 .jumbotron{
   background-color: rgba(150,234,227,.30);
   height: 220px;
+  color: #67696d;
+}
+
+body{
+  color: #67696d;
 }
 
 #dir{
@@ -12,9 +17,11 @@
 #message{
   padding-left: 15px;
   font-size: 18px;
+  color: #67696d;
 }
 #redirect{
   padding-left: 15px;
+  color: #67696d;
 }
 
 #map {
