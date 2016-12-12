@@ -40,11 +40,8 @@ function getTemplate(name){
     return temp;
 }
 
-<<<<<<< Updated upstream
-function displayResult(place){
-=======
+
 function displayResult(place){    
->>>>>>> Stashed changes
     var resultHtml = getTemplate("result-template");
     resultHtml.attr("id", ""+place.Id);
     resultHtml.find(".name").append('<h4><strong>' + place.Name + '</strong></h4>');
@@ -62,20 +59,13 @@ function displayResult(place){
     if(place.Rating != null){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
-<<<<<<< Updated upstream
 
-    $("#result-pane").append(resultHtml);
-    addEventListeners();
-=======
-    
-    $("#result-pane").append(resultHtml);
-    
+    $("#result-pane").append(resultHtml);    
 
     var id = $("#result-pane").find("#"+place.Id).attr("id");
 
     var result = $("#result-pane"+" "+"#"+id);
     resultList.push(getLocation(result));   
->>>>>>> Stashed changes
 }
 
 
@@ -150,31 +140,7 @@ function getLocation(result){
 }
 
 function addFavoriteSaved(){
-<<<<<<< Updated upstream
-
-    var resultTemplate= $(".favorite-template").clone(true, true);
-
-    $("#liked").html("");
-
-    var i;
-    for(i = 0; i < favoriteList.length; i++){
-        var favorite = favoriteList[i];
-
-        resultTemplate.attr("id", favorite.ID);
-
-        resultTemplate.find("#name").text(favorite.Name); resultTemplate.find("#address").text(favorite.Address);
-        resultTemplate.find("#phone").text(favorite.Phone);
-        resultTemplate.find("#website").text(favorite.Website);
-        resultTemplate.find("#price").text(favorite.Price);
-        resultTemplate.find("#rating").text(favorite.Rating);
-        resultTemplate.removeClass("hidden");
-
-        $("#liked").append(resultTemplate);
-    }
-=======
-    
-    var resultTemplate= getTemplate("favorite-template");
-    
+    var resultTemplate= getTemplate("favorite-template");  
     var favorite = favoriteList[favoriteList.length-1];
 
     resultTemplate.attr("id", favorite.Id);
@@ -185,8 +151,7 @@ function addFavoriteSaved(){
     resultTemplate.find(".price").text(favorite.Price);
     resultTemplate.find(".rating").text(favorite.Rating);
         
-    $("#liked").append(resultTemplate);  
->>>>>>> Stashed changes
+    $("#liked").append(resultTemplate); 
 }
 
 function message(travel_mode,activities,address){
@@ -265,7 +230,6 @@ function removeFirst(){
   $('#b').empty();
   $('#writtenDirections').empty();
   initMap();
-
 }
 
 function makeFirst(place){
