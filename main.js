@@ -30,8 +30,22 @@ function getTemplate(name){
     return temp;
 }
 
+/*function addToResultList(paneid, id){
+    var result = $("#"+paneid+" "+"#"+id);
+    var place = new Location(id,
+                             result.find(".name").text(),
+                             result.find(".address").text(),
+                             result.find(".phone").text(),
+                             result.find(".website").text(),
+                             result.find(".price").text(),
+                             result.find(".rating").text());
+    resultList.push(place);
+    console.log(resultList);
+}*/
+
 function displayResult(place){    
     var resultHtml = getTemplate("result-template");
+    
     resultHtml.attr("id", ""+place.Id);
     resultHtml.find(".name").append('<h4><strong>' + place.Name + '</strong></h4>');
     resultHtml.find(".address").append('Address: '+ place.formatted_address);
@@ -48,13 +62,22 @@ function displayResult(place){
     if(place.Rating != null){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
+    console.log(resultHtml);
     
     $("#result-pane").append(resultHtml);
-    addEventListeners();
+    
+
+    var id = $("#result-pane").find("#"+place.Id).attr("id");
+
+    var result = $("#result-pane"+" "+"#"+id);
+    resultList.push(getLocation(result));
+
+    
+    addEventListeners();    
 }
 
 
-                
+               
 function equal(location1, location2){
     var eq = 0;
     eq = (location1.Name == location2.Name)?eq+0:eq+1;
@@ -108,7 +131,6 @@ function removeFavorite(favorite){
 }
 
 function getLocation(result){
-    
     //create new Location object from result info
     var id = result.attr("id");
     var name = result.find(".name").text();
@@ -119,7 +141,6 @@ function getLocation(result){
     var rating = result.find(".rating").text();
 
     var favorite = new Location(id, name, address,phone,website,price,rating);
-
     return favorite;
 }
 
