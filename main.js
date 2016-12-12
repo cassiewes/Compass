@@ -31,10 +31,10 @@ function mainBack(){
   location.href="main.html#"+method;
 }
 
-window.onbeforeunload = function(){ 
+window.onbeforeunload = function(){
     console.log("UNLOAD");
     console.log(favoriteList);
-    
+
     if(favoriteList.length != 0){
         localStorage.setItem("favoriteList", JSON.stringify(favoriteList));
     }else{
@@ -64,7 +64,7 @@ function reloadFavorites(tempList){
     var i;
     for(i = 0; i < tempList.length; i++){
         id = tempList[i].Id;
-        
+
         if($("#"+id).length == 0){
             var favorite = new Location(
                         tempList[i].Id,
@@ -119,13 +119,13 @@ function displayResult(place){
     if(place.Rating != null){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
-    
+
     $("#result-pane").append(resultHtml);
 
     var id = $("#result-pane").find("#"+place.Id).attr("id");
 
     var result = $("#result-pane"+" "+"#"+id);
-    
+
     resultList.push(getLocation(result));
 }
 
@@ -149,7 +149,7 @@ function addEventListeners(){
     //function for favoriting a workout location (click star)
     $(".star label input" ).change(function(event) {
         //get the html object for location
-        
+
         var result = $(this).parents("button").first();
 
         //get result location information
@@ -158,20 +158,20 @@ function addEventListeners(){
         if($(this).first().prop("checked")){
             favoriteList.push(favorite);
             addFavoriteSaved(favorite.Id);
-            
+
             console.log("add");
             console.log(favoriteList);
         }else{
             removeFavorite(favorite.Id);
-            
+
             console.log("rm");
             console.log(favoriteList);
         }
     });
-    
+
     $(".remove-link").click(function(event){
         var id = $(this).parents(".btn-group").first().attr("id");
-        $("#result-pane"+" #"+id+" "+"label").first().trigger("click"); 
+        $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
         if($("#result-pane"+" #"+id+" "+"label").first().length == 0){
             removeFavorite(id);
         }
@@ -209,7 +209,7 @@ function addFavoriteSaved(id){
     var favorite = favoriteList[index];
 
     resultTemplate.attr("id", favorite.Id);
-    resultTemplate.find(".name").text(favorite.Name); 
+    resultTemplate.find(".name").text(favorite.Name);
     resultTemplate.find(".address").text(favorite.Address);
     resultTemplate.find(".phone").text(favorite.Phone);
     resultTemplate.find(".website").text(favorite.Website);
@@ -295,13 +295,13 @@ function removeFirst(){
   $('#b').empty();
   $('#writtenDirections').empty();
   $('#timeEst').empty();
-    
+
   generateResults = false;
   initMap();
 }
 
 function makeFirst(placeId){
-  var place = getLocation($("#"+placeId).first());   
+  var place = getLocation($("#"+placeId).first());
   $('#titleD').empty();
   $('#nameD').empty();
   $('#addressD').empty();
@@ -310,6 +310,7 @@ function makeFirst(placeId){
   $('#priceD').empty();
   $('#ratingD').empty();
   $('#b').empty();
+  $('#fav').empty();
   $('#writtenDirections').empty();
   $('#titleD').append("<h4><i> You've selected: </i></h4>")
   $('#nameD').append(place.Name);
@@ -345,6 +346,7 @@ function initMap() {
         zoom: 16,
         styles:
         [
+//MAP STYLING
     {
         "featureType": "administrative",
         "elementType": "labels.text.fill",
@@ -579,12 +581,14 @@ function initMap() {
 ]
 
     });
+    //Opens new directions service
     var directionsService = new google.maps.DirectionsService;
     var directionsDisplay = new google.maps.DirectionsRenderer;
     directionsDisplay.setMap(map);
 
     infowindow = new google.maps.InfoWindow();
     service = new google.maps.places.PlacesService(map);
+    //executes the places search
     service.nearbySearch({
       location: locate,
       radius: 500,
@@ -594,18 +598,28 @@ function initMap() {
 
     function callback(results, status) {
       var k = 0;
+      //If no results, display this
+      if (results.length == 0){
+        $('#nameD').append("<strong>Hmmm...Your search returned no results.</strong>")
+        $('#addressD').append("<a href =\"index.html\">Try a new search!</a>")
+      }
+      //Dealing with places reuslts
       if (status === google.maps.places.PlacesServiceStatus.OK) {
+        //For each result:
         for (var i = 0; i < results.length; i++) {
           createMarker(results[i]);
           service.getDetails({
               placeId: results[i].place_id,
             }, function(place, status) {
               if (status === google.maps.places.PlacesServiceStatus.OK) {
+                //Creates a marker for each result
                 var marker = new google.maps.Marker({
                   icon: 'http://maps.google.com/mapfiles/ms/icons/ltblue-dot.png',
                   map: map,
                   position: place.geometry.location
                 });
+                //Creates an info window with the place name
+                //On hover pulls it up and when mouse goes away it hides it
                 var infowindow = new google.maps.InfoWindow({
                   content: place.name,
                 });
@@ -615,7 +629,7 @@ function initMap() {
                 marker.addListener('mouseout', function() {
                   infowindow.close()
                 });
-                  
+
                 if(generateResults){
                     var location = new Location(place.place_id,
                                                  place.name,
@@ -624,44 +638,41 @@ function initMap() {
                                                  place.website,
                                                  place.price_level,
                                                  place.rating);
-                    displayResult(location);  
+                    displayResult(location);
                 }
-                  
-                  <!-------------------------------------------Issues Addind listener on results, Worksfor favorites----------------> 
-    
-                    
+
+                //Displays information / directions on click
                         $(".show-directions").click(function(){
 
                             route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                                 directionsService, directionsDisplay);
                             });
-               
-                <!----------------------------------------------------------------------------------------------------->
+                //Displays information directions on click of favorites
                 if(setFavDirListener){
                     $(".show-fav-directions").click(function(){
                         var id =  $(this).parents(".btn-group").first().attr("id");
-                        
+
                       route(id, addressPlaceID, id
                             ,travel_mode,
                             directionsService, directionsDisplay);
-                     
+
                     });
 
                     setFavDirListener = false;
                 }
-                  
+                //Displays information / directions on marker click
                 google.maps.event.addListener(marker, 'click', function() {
                   route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
-                  
+
                 k++;
               }
             });
         }
       }
     }
-
+//Function for creating a marker on the map
     function createMarker(place) {
       var placeLoc = place.geometry.location;
       var marker = new google.maps.Marker({
@@ -676,6 +687,7 @@ function initMap() {
       });
     }
 
+    //Function for obtaining directions
     function route(place,origin_place_id, destination_place_id, travel_mode,
                    directionsService, directionsDisplay) {
       if (!origin_place_id || !destination_place_id) {
@@ -695,13 +707,15 @@ function initMap() {
             var instruction = response.routes[0].legs[0].steps[i].instructions
             $('#writtenDirections').append(instruction + '<br>');
           }
+          $('#timeEst').empty();
           $('#timeEst').append("Time Estimate: "+response.routes[0].legs[0].duration.text);
         } else {
-          window.alert('Directions request failed due to ' + status);
+          console.log('directions');
         }
       });
     }
   }
+  //If the status is not okay on the geocoding, send back to the address page with an address error
   else {
    var method = window.location.hash.substr(1);
    var parts = method.split("&");
