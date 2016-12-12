@@ -8,17 +8,53 @@ var locate;
 var addressPlaceID;
 var activities;
 var favoriteList = [];
+var resultList = [];
 var mode;
+var DISPLAYINTERVAL = 10;
+var DISPLAYSTART= 0;
 
-function Location(name, address, phone, website, price, rating){
+function Location(id, name, address, phone, website, price, rating){
+    this.Id = id;
     this.Name = name;
     this.Address = address;
     this.Phone = phone;
     this.Website = website;
     this.Price = price;
     this.Rating = rating;
+    this.favorite = false;
 }
 
+function getTemplate(name){
+    var temp = $("."+name).clone(true, true);
+    temp.removeClass("hidden" + " " + name);
+    return temp;
+}
+
+function displayResult(place){    
+    var resultHtml = getTemplate("result-template");
+    resultHtml.attr("id", ""+place.Id);
+    resultHtml.find(".name").append('<h4><strong>' + place.Name + '</strong></h4>');
+    resultHtml.find(".address").append('Address: '+ place.formatted_address);
+
+    if (place.Phone != null){
+      resultHtml.find(".phone").append('Phone: ' +place.Phone);
+    }
+    if (place.Website != null){
+      resultHtml.find(".website").append('Website: <a href=\"'+place.Website+'\">'+place.Website+'</a>');
+    }
+    if(place.Price != null){
+      resultHtml.find(".price").append('Price level: '+ place.Price);
+    }
+    if(place.Rating != null){
+      resultHtml.find(".rating").append('Rating: '+place.Rating);
+    }
+    
+    $("#result-pane").append(resultHtml);
+    addEventListeners();
+}
+
+
+                
 function equal(location1, location2){
     var eq = 0;
     eq = (location1.Name == location2.Name)?eq+0:eq+1;
@@ -44,11 +80,8 @@ function addEventListeners(){
         //get the html object for location
         var result = $(this).parents("button").first();
 
-        //get the  result id of location
-        var resultIdName = result.attr("id");
-
         //get result location information
-        var favorite = getLocation(resultIdName);
+        var favorite = getLocation(result);
 
         if($(this).first().prop("checked")){
             favoriteList.push(favorite);
@@ -74,43 +107,40 @@ function removeFavorite(favorite){
     addFavoriteSaved();
 }
 
-function getLocation(resultIdName){
-    var resultNumber = resultIdName.charAt(resultIdName.length-1);
-
+function getLocation(result){
+    
     //create new Location object from result info
-    var name = $('#name'+resultNumber).text();
-    var address = $('#address'+resultNumber).text();
-    var phone = $('#phone'+resultNumber).text();
-    var website = $('#website'+resultNumber).text();
-    var price = $('#price'+resultNumber).text();
-    var rating = $('#rating'+resultNumber).text();
+    var id = result.attr("id");
+    var name = result.find(".name").text();
+    var address = result.find(".address").text();
+    var phone = result.find(".phone").text();
+    var website = result.find(".website").text();
+    var price = result.find(".price").text();
+    var rating = result.find(".rating").text();
 
-    var favorite = new Location(name, address,phone,website,price,rating);
+    var favorite = new Location(id, name, address,phone,website,price,rating);
 
     return favorite;
 }
 
 function addFavoriteSaved(){
     
-    var resultTemplate= $(".result-template").clone(true, true);
+    var resultTemplate= $(".favorite-template").clone(true, true);
     
-    $("#liked").html("<p></p>");
-    
-    console.log("Result");
-    
-    console.log(resultTemplate);
+    $("#liked").html("");
     
     var i;
     for(i = 0; i < favoriteList.length; i++){
         var favorite = favoriteList[i];
-        resultTemplate.find("#name").text(favorite.Name);
-        resultTemplate.find("#address").text(favorite.Address);
+        
+        resultTemplate.attr("id", favorite.ID);
+        
+        resultTemplate.find("#name").text(favorite.Name); resultTemplate.find("#address").text(favorite.Address);
         resultTemplate.find("#phone").text(favorite.Phone);
         resultTemplate.find("#website").text(favorite.Website);
         resultTemplate.find("#price").text(favorite.Price);
         resultTemplate.find("#rating").text(favorite.Rating);
         resultTemplate.removeClass("hidden"); 
-        resultTemplate.removeAttr("id");
         
         $("#liked").append(resultTemplate);
     }   
@@ -508,33 +538,22 @@ function initMap() {
                 marker.addListener('mouseout', function() {
                   infowindow.close()
                 });
-                $('#name'+k).empty()
-                $('#address'+k).empty()
-                $('#phone'+k).empty()
-                $('#website'+k).empty()
-                $('#price'+k).empty()
-                $('#rating'+k).empty()
-                $('#name'+k).append('<h4><strong>' +place.name + '</strong></h4>');
-                $('#address'+k).append('Address: '+ place.formatted_address);
-                if (place.phone != null){
-                  $('#phone'+k).append('Phone: ' +place.formatted_phone_number);
-                }
-                if (place.website != null){
-                  $('#website'+k).append('Website: <a href=\"'+place.website+'\">'+place.website+'</a>');
-                }
-                if(place.price_level != null){
-                  $('#price'+k).append('Price level: '+ place.price_level);
-                }
-                if(place.rating != null){
-                  $('#rating'+k).append('Rating: '+place.rating);
-                }
+                
+                displayResult(new Location(place.place_id,
+                                             place.name,
+                                             place.formatted_address,
+                                             place.phone,
+                                             place.website,
+                                             place.price_level,
+                                             place.rating));
+                
                 google.maps.event.addListener(marker, 'click', function() {
                   route(place,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
                 k++;
               }
-            });
+            });        
         }
       }
     }
