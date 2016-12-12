@@ -41,7 +41,7 @@ function getTemplate(name){
 }
 
 
-function displayResult(place){    
+function displayResult(place){
     var resultHtml = getTemplate("result-template");
     resultHtml.attr("id", ""+place.Id);
     resultHtml.find(".name").append('<h4><strong>' + place.Name + '</strong></h4>');
@@ -60,12 +60,12 @@ function displayResult(place){
       resultHtml.find(".rating").append('Rating: '+place.Rating);
     }
 
-    $("#result-pane").append(resultHtml);    
+    $("#result-pane").append(resultHtml);
 
     var id = $("#result-pane").find("#"+place.Id).attr("id");
 
     var result = $("#result-pane"+" "+"#"+id);
-    resultList.push(getLocation(result));   
+    resultList.push(getLocation(result));
 }
 
 
@@ -140,7 +140,7 @@ function getLocation(result){
 }
 
 function addFavoriteSaved(){
-    var resultTemplate= getTemplate("favorite-template");  
+    var resultTemplate= getTemplate("favorite-template");
     var favorite = favoriteList[favoriteList.length-1];
 
     resultTemplate.attr("id", favorite.Id);
@@ -150,8 +150,8 @@ function addFavoriteSaved(){
     resultTemplate.find(".website").text(favorite.Website);
     resultTemplate.find(".price").text(favorite.Price);
     resultTemplate.find(".rating").text(favorite.Rating);
-        
-    $("#liked").append(resultTemplate); 
+
+    $("#liked").append(resultTemplate);
 }
 
 function message(travel_mode,activities,address){
@@ -229,6 +229,7 @@ function removeFirst(){
   $('#ratingD').empty();
   $('#b').empty();
   $('#writtenDirections').empty();
+  $('#timeEst').empty();
   initMap();
 }
 
@@ -598,6 +599,7 @@ function initMap() {
             var instruction = response.routes[0].legs[0].steps[i].instructions
             $('#writtenDirections').append(instruction + '<br>');
           }
+          $('#timeEst').append("Time Estimate: "+response.routes[0].legs[0].duration.text);
         } else {
           window.alert('Directions request failed due to ' + status);
         }
