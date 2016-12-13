@@ -31,6 +31,13 @@ function mainBack(){
   location.href="main.html#"+method;
 }
 
+
+<!--------------------------------------------------------------------------------->
+<!-------------------CODE HANDLING RESULTS AND SAVED LIST-------------------------->
+<!--------------------------------------------------------------------------------->    
+    
+    
+//Saves users saved places to localStorage
 window.onbeforeunload = function(){
     console.log("UNLOAD");
     console.log(favoriteList);
@@ -42,6 +49,7 @@ window.onbeforeunload = function(){
     }
 };
 
+//Function that loads users saved places from local storage
 function onLoad(){
     console.log("LOAD");
 
@@ -54,11 +62,12 @@ function onLoad(){
     reloadFavorites(temp);
 }
 
+//loads users saved places
 $(window).on("load", function(){
     onLoad();
 });
 
-
+//Used to display favorites on Favorite html
 function reloadFavorites(tempList){
     var id;
     var i;
@@ -83,6 +92,7 @@ function reloadFavorites(tempList){
     }
 }
 
+//Constructor fo creating places object
 function Location(id, name, address, phone, website, price, rating){
     this.Id = id;
     this.Name = name;
@@ -93,14 +103,14 @@ function Location(id, name, address, phone, website, price, rating){
     this.Rating = rating;
 }
 
-
+//Gets html templates from main html for list elements
 function getTemplate(name){
     var temp = $("."+name).clone(true, true);
     temp.removeClass("hidden" + " " + name);
     return temp;
 }
 
-
+//Displays placce in result list
 function displayResult(place){
     var resultHtml = getTemplate("result-template");
     resultHtml.attr("id", ""+place.Id);
@@ -131,11 +141,12 @@ function displayResult(place){
 }
 
 
-
+//compares two places for equality
 function equal(location1, location2Id){
     return (location1.Id == location2Id);
 }
 
+//Returns the index of a place in favorite list
 function getIndex(locationId){
     var i;
     for(i = 0; i < favoriteList.length; i++){
@@ -146,6 +157,7 @@ function getIndex(locationId){
     return false;
 }
 
+//Event listeners for adding a favorite place and removing a favoite
 function addEventListeners(){
     //function for favoriting a workout location (click star)
     $(".star label input" ).change(function(event) {
@@ -173,21 +185,24 @@ function addEventListeners(){
     $(".remove-link").click(function(event){
         var id = $(this).parents(".btn-group").first().attr("id");
         $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
+        
         if($("#result-pane"+" #"+id+" "+"label").first().length == 0){
             removeFavorite(id);
         }
     });
 }
 
+//Add event listeners
 addEventListeners();
 
-
+//Remove favorite place from saved pane
 function removeFavorite(favoriteId){
     var index = getIndex(favoriteId);
     favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
     $("#liked"+" "+"#"+favoriteId).remove();
 }
 
+//Create a location object from html element
 function getLocation(result){
 
     //create new Location object from result info
@@ -204,6 +219,7 @@ function getLocation(result){
     return favorite;
 }
 
+//Display favorite in saved list 
 function addFavoriteSaved(id){
     var resultTemplate= getTemplate("favorite-template");
     var index = getIndex(id);
@@ -219,6 +235,12 @@ function addFavoriteSaved(id){
 
     $("#liked").append(resultTemplate);
 }
+
+
+<!--------------------------------------------------------------------------------->
+<!-----------------------END OF RESULTS AND SAVED CODE----------------------------->
+<!--------------------------------------------------------------------------------->
+    
 
 function message(travel_mode,activities,address){
   mode = "";
