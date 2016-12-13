@@ -660,7 +660,6 @@ function initMap() {
 
                 //Displays information / directions on click
                         $(".show-directions").click(function(){
-                            window.alert(place.name)
                             route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                                 directionsService, directionsDisplay);
                             });
