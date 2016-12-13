@@ -127,6 +127,7 @@ function displayResult(place){
     var result = $("#result-pane"+" "+"#"+id);
 
     resultList.push(getLocation(result));
+    console.log("Result Created: " + place.Id);
 }
 
 
@@ -638,8 +639,15 @@ function initMap() {
                                                  place.rating);
                     displayResult(location);
                 }
+ 
+                 console.log("Current Place: "+place.place_id);
+                 
+                        $("#result-pane .list-button:nth-last-child(1)").find(".show-directions").click(function(){
+                            
+                            route(place.place_id,addressPlaceID, place.place_id, travel_mode,
+                                directionsService, directionsDisplay);
+                            });
 
-                //Displays information directions on click of favorites
                 if(setFavDirListener){
                     $(".show-fav-directions").click(function(){
                         var id =  $(this).parents(".btn-group").first().attr("id");
@@ -651,18 +659,13 @@ function initMap() {
                     });
 
                     setFavDirListener = false;
-                }
+                 }
+                  
                 //Displays information / directions on marker click
                 google.maps.event.addListener(marker, 'click', function() {
                   route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
-
-                //Displays information / directions on click
-                        $(".show-directions").click(function(){
-                            route(place.place_id,addressPlaceID, place.place_id, travel_mode,
-                                directionsService, directionsDisplay);
-                            });
 
                 k++;
               }
