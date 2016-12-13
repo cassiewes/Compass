@@ -199,7 +199,9 @@ addEventListeners();
 function removeFavorite(favoriteId){
     var index = getIndex(favoriteId);
     favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
-    $("#liked"+" "+"#"+favoriteId).remove();
+    $("#liked"+" "+"#"+favoriteId).fadeOut("fast", function(){
+        $(this).remove();   
+    })
 }
 
 //Create a location object from html element
