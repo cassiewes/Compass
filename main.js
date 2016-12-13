@@ -12,6 +12,7 @@ var mode;
 var favoriteList = [];
 var generateResults = true;
 var setFavDirListener = true;
+var confirmRemoveID;
 
 
 function conf(){
@@ -31,12 +32,10 @@ function mainBack(){
   location.href="main.html#"+method;
 }
 
-
 <!--------------------------------------------------------------------------------->
 <!-------------------CODE HANDLING RESULTS AND SAVED LIST-------------------------->
 <!--------------------------------------------------------------------------------->    
-    
-    
+                               
 //Saves users saved places to localStorage
 window.onbeforeunload = function(){
     console.log("UNLOAD");
@@ -64,7 +63,7 @@ function onLoad(){
 
 //loads users saved places
 $(window).on("load", function(){
-    onLoad();
+    onLoad(); 
 });
 
 //Used to display favorites on Favorite html
@@ -183,14 +182,21 @@ function addEventListeners(){
     });
 
     $(".remove-link").click(function(event){
-        var id = $(this).parents(".btn-group").first().attr("id");
-        $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
+        confirmRemoveID = $(this).parents(".btn-group").first().attr("id");
         
-        if($("#result-pane"+" #"+id+" "+"label").first().length == 0){
-            removeFavorite(id);
+        var temp = confirm("Are you sure you want to remove?");
+        
+        if(temp){
+            var id = $(this).parents(".btn-group").first().attr("id");
+            $("#result-pane"+" #"+id+" "+"label").first().trigger("click");
+
+            if($("#result-pane"+" #"+id+" "+"label").first().length == 0){
+                removeFavorite(id);
+            }
         }
     });
 }
+
 
 //Add event listeners
 addEventListeners();
@@ -201,7 +207,7 @@ function removeFavorite(favoriteId){
     favoriteList =  (favoriteList.slice(0,index)).concat(favoriteList.slice(index+1, favoriteList.length));
     $("#liked"+" "+"#"+favoriteId).fadeOut("fast", function(){
         $(this).remove();   
-    })
+    });
 }
 
 //Create a location object from html element
@@ -236,6 +242,8 @@ function addFavoriteSaved(id){
     resultTemplate.find(".rating").text(favorite.Rating);
 
     $("#liked").append(resultTemplate);
+    $('[data-toggle="tooltip"]').tooltip();
+    
 }
 
 
