@@ -654,7 +654,6 @@ function initMap() {
                 }
                 //Displays information / directions on marker click
                 google.maps.event.addListener(marker, 'click', function() {
-                  window.alert(place.name);
                   route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                         directionsService, directionsDisplay);
                 });
