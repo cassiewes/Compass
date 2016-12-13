@@ -38,6 +38,10 @@ $(document).ready(function() {
         var method = window.location.hash.substr(1);
         location.href= "main.html#"+method+"&Address="+address;
       }
+      else{
+        $("#title").empty();
+        $("#title").append("make sure you end your address with a valid 5-digit zip code!");
+      }
     }
     else{
       $("#title").empty();
