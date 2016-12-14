@@ -33,10 +33,10 @@ function mainBack(){
 }
 
 function seeFavoritesOnly(){
+    console.log("Second");
     var params = window.location.hash.substr(1);
     var parts = params.split('&');
     if(parts.length == 4){
-        
         $(".result-tab").removeClass("active");
         $("#results").removeClass("active");
         $(".liked-tab").addClass("active");
@@ -45,6 +45,7 @@ function seeFavoritesOnly(){
         $('#titleD').empty();
         $('#nameD').empty(); 
         $('#addressD').empty();
+        $('.show-fav-directions').empty();
     }
 }
 
@@ -702,9 +703,10 @@ function initMap() {
                             route(place.place_id,addressPlaceID, place.place_id, travel_mode,
                                 directionsService, directionsDisplay);
                             });
-
+                  
                 if(setFavDirListener){
                     $(".show-fav-directions").click(function(){
+                        
                         var id =  $(this).parents(".btn-group").first().attr("id");
 
                       route(id, addressPlaceID, id
