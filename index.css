@@ -52,7 +52,7 @@ body{
 }
 
 #example{
-    position:absolute;
+  position:absolute;
    top: 85%;
    text-align: center;
    left: 35%;
@@ -62,5 +62,11 @@ body{
 }
 
 .seefavsonly{
-    text-align: right;
+  position:absolute;
+   top: 88%;
+   text-align: center;
+   left: 45%;
+   font-family: 'Montserrat', sans-serif;
+   font-size:20px;
+   color: #eaedf2;
 }
