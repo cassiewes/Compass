@@ -32,6 +32,22 @@ function mainBack(){
   location.href="main.html#"+method;
 }
 
+function seeFavoritesOnly(){
+    var params = window.location.hash.substr(1);
+    var parts = params.split('&');
+    if(parts.length == 4){
+        
+        $(".result-tab").removeClass("active");
+        $("#results").removeClass("active");
+        $(".liked-tab").addClass("active");
+        $("#liked").addClass("active");
+        $('#result-pane').empty();
+        $('#titleD').empty();
+        $('#nameD').empty(); 
+        $('#addressD').empty();
+    }
+}
+
 <!--------------------------------------------------------------------------------->
 <!-------------------CODE HANDLING RESULTS AND SAVED LIST-------------------------->
 <!--------------------------------------------------------------------------------->    
@@ -64,6 +80,7 @@ function onLoad(){
 //loads users saved places
 $(window).on("load", function(){
     onLoad(); 
+    seeFavoritesOnly();
 });
 
 //Used to display favorites on Favorite html
@@ -288,7 +305,13 @@ function message(travel_mode,activities,address){
 }
 
 function backAddress(){
-  location.href = "address.html#" + parts[0] + "&" + parts[1];
+    var params = window.location.hash.substr(1);
+    var parts = params.split('&');
+    if(parts.length == 4){
+        location.href = "index.html";
+    }else{
+        location.href = "address.html#" + parts[0] + "&" + parts[1];
+    } 
 }
 
 function getInfo(){
